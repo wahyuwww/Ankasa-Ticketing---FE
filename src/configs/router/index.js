@@ -29,7 +29,7 @@ function Router() {
         <Route path="/country" element={<Country />} />
         <Route path="/detail/:id" element={<CountryDetail />} />
         <Route path="/country/create" element={<CountryCreate />} />
-        <Route path="/country/edit" element={<CountryEdit />} />
+        <Route path="/editCountry/:id" element={<CountryEdit />} />
         {/* flights */}
         <Route path="/flights" element={<FlightsAdmin />} />
         <Route path="/flights/detail" element={<FlightsDetail />} />

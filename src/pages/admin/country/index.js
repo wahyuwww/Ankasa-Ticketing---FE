@@ -109,7 +109,7 @@ const Country = () => {
                                 <span className="text">Detail</span>
                               </button>
                             </Link>
-                            <Link to="/country/edit">
+                            <Link to={`/editCountry/${item.id}`}>
                               <button className="mr-2 ml-2 btn btn-primary">
                                 <span className="text">Edit</span>
                               </button>

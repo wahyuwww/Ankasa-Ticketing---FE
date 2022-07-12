@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import image from "../../../assets/image/surakarta.jpeg";
 
 const Detail = () => {
+  
   return (
     <div id="wrapper">
       <Sidebar />
