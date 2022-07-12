@@ -44,7 +44,7 @@ const Create = () => {
       <Sidebar />
       <div id="content-wrapper" className="d-flex flex-column">
         <Navbar />
-        <div class="box-header with-border mb-3 ml-3">
+        <div className="box-header with-border mb-3 ml-3">
           <h1 className="h3 mb-2 text-gray-800">Create Country</h1>
         </div>
         <form action="" onSubmit={onSubmit}>

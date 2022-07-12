@@ -25,13 +25,14 @@ export const createCountry = (data, navigate) => async (dispacth) => {
   try {
     dispacth({ type: ActionTypes.ADD_COUNTRY_PENDING });
     const createdAt = await axios.post(
-      ` https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/country/newcountr`,
+      ` https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/country/newcountry`,
       data,
       {
         "content-type": "multipart/form-data",
       }
     );
     navigate("/country");
+    console.log(createdAt)
     dispacth({ type: ActionTypes.CREATE_COUNTRY, payload: createdAt });
   } catch (error) {
     dispacth({ type: ActionTypes.GET_COUNTRY_ERROR, payload: error.response });
