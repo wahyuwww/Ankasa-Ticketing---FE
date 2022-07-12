@@ -4,23 +4,20 @@ import Sidebar from "../../../components/Module/sidebar";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { setAirlanes } from "../../../configs/redux/actions/airlanesActions";
-import { deleteAirlanes } from "../../../configs/redux/actions/airlanesActions";
+import { setCustomer,deleteCustomer } from "../../../configs/redux/actions/costemersActions";
 import Swal from "sweetalert2";
 
-const Airlanes = () => {
-  const airlanes = useSelector((state) => state.allAirlanes.airlanes);
+const Users = () => {
+  const customer = useSelector((state) => state.allCustomer.customer);
   const dispatch = useDispatch();
-  console.log(airlanes);
+  console.log(customer);
   const fetchData = async () => {
     const response = await axios
-      .get(
-        `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/airlanes/getairlanes`
-      )
+      .get(`${process.env.REACT_APP_API_BACKEND}/users/getusers`)
       .catch((err) => {
         console.log(err);
       });
-    dispatch(setAirlanes(response.data.data));
+    dispatch(setCustomer(response.data.data));
   };
   useEffect(() => {
     fetchData();
@@ -28,7 +25,7 @@ const Airlanes = () => {
   }, []);
   const deletes = async (id) => {
     Swal.fire({
-      title: "Are you sure to delete this airlanes?",
+      title: "Are you sure to delete this USERS?",
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
@@ -38,10 +35,12 @@ const Airlanes = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await axios
-          .delete(`${process.env.REACT_APP_API_BACKEND}/airlanes/delete/${id}`)
+          .delete(
+            `${process.env.REACT_APP_API_BACKEND}/users/deleteusers/${id}`
+          )
           .then((res) => {
             fetchData();
-            dispatch(deleteAirlanes(res));
+            dispatch(deleteCustomer(res));
             // navigate('/product')
             Swal.fire("Deleted!", "Your message has been deleted.", "success");
             console.log(res);
@@ -52,7 +51,7 @@ const Airlanes = () => {
 
   const onActive = async (id) => {
     await axios
-      .put(`${process.env.REACT_APP_API_BACKEND}/airlanes/activate/${id}`)
+      .put(`${process.env.REACT_APP_API_BACKEND}/users/activate/${id}`)
       .then((res) => {
         // alert("berhasil");
         fetchData();
@@ -66,25 +65,20 @@ const Airlanes = () => {
   }, []);
   return (
     <div id="wrapper">
-      <Sidebar activeairlanes="active"/>
+      <Sidebar activeusers="active"/>
       <div id="content-wrapper" className="d-flex flex-column">
         <Navbar />
         <div>
           <div className="container-fluid">
             {/* Page Heading */}
-            <h1 className="h3 mb-2 text-gray-800">Kelola Airlanes</h1>
+            <h1 className="h3 mb-2 text-gray-800">Kelola Users</h1>
             {/* DataTales Example */}
             <div className="card shadow mb-4">
               <div className="card-header py-3">
                 <h6 className="m-0 font-weight-bold text-primary">
-                  Data Airlanes
+                  Data Users
                 </h6>
               </div>
-              <Link to="/airlanes/create">
-                <button className="btn btn-warning ml-3 mt-2">
-                  <span className="text"> + Create</span>
-                </button>
-              </Link>
               <div className="card-body">
                 <div className="table-responsive">
                   <table
@@ -96,51 +90,42 @@ const Airlanes = () => {
                       <tr>
                         <th>No</th>
                         <th>Name</th>
-                        <th>Image</th>
+                        <th>Username</th>
+                        <th>Email</th>
                         <th>active</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {airlanes.map((item, index) => (
+                      {customer.map((item, index) => (
                         <tr key={item.id}>
                           <td>{index + 1}</td>
                           <td>{item.name}</td>
-                          <td>
-                            {" "}
-                            <img
-                              width="100px"
-                              height="100px"
-                              src={item.image}
-                              alt="img"
-                            />
-                          </td>
+                          <td>{item.username}</td>
+                          <td>{item.email}</td>
                           <td>
                             <button
                               onClick={() => onActive(item.id)}
                               className={
-                                item.is_active === 1
+                                item.is_active === true
                                   ? "btn btn-primary"
                                   : "btn btn-secondary"
                               }
                             >
-                              {item.is_active === 1 ? "active" : "non active"}
+                              {item.is_active === true
+                                ? "active"
+                                : "non active"}
                             </button>
                           </td>
                           <td>
-                            <Link to={`/detailAirlanes/${item.id}`}>
+                            <Link to={`/detailUsers/${item.id}`}>
                               <button className="btn btn-success">
                                 <span className="text">Detail</span>
                               </button>
                             </Link>
-                            <Link to={`/editAirlanes/${item.id}`}>
-                              <button className="mr-2 ml-2 btn btn-primary">
-                                <span className="text">Edit</span>
-                              </button>
-                            </Link>
                             <button
                               onClick={() => deletes(item.id)}
-                              className=" btn btn-danger"
+                              className=" btn btn-danger ml-2"
                             >
                               <span className="text">Delete</span>
                             </button>
@@ -160,4 +145,4 @@ const Airlanes = () => {
   );
 };
 
-export default Airlanes;
+export default Users;

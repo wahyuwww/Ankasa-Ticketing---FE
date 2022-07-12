@@ -6,7 +6,7 @@ import Sidebar from "../../../components/Module/sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createAirlanes } from "../../../configs/redux/actions/airlanesActions";
-import Swal from "sweetalert2";
+
 
 const Create = () => {
   const navigate = useNavigate();
@@ -28,11 +28,7 @@ const Create = () => {
       data.append("image", image);
       e.preventDefault();
       dispatch(createAirlanes(data, navigate));
-       Swal.fire({
-         icon: "success",
-         title: "Berhasil mengupload airlanes",
-         text: `airlanes : ${name}`,
-       });
+      alert("yess berhasil");
     }
   };
 
@@ -44,7 +40,7 @@ const Create = () => {
   };
   return (
     <div id="wrapper">
-      <Sidebar activeairlanes="active" />
+      <Sidebar activebooking="active" />
       <div id="content-wrapper" className="d-flex flex-column">
         <Navbar />
         <div class="box-header with-border mb-3 ml-3">

@@ -9,8 +9,10 @@ import {
   dataAirlanes,
 } from "./airlanes";
 import { userReducer } from "./userReducer";
-import { cartReducer, todosReducer } from "./cartReducer";
-import { cartsReducer } from "./cartsReducer";
+import { airlanesDetailReducer } from "./airlanesDetailReducer";
+import { countryDetailReducer } from "./countrydetailReducer";
+import { costemerDetailReducer } from "./costemerDetailReducer";
+import { bookingdetailAction } from "./bookingsReducer";
 
 import {
   countryReducer,
@@ -22,6 +24,25 @@ import {
   dataCountry,
 } from "./country";
 
+import {
+  BookingReducer,
+  CreatebookingReducer,
+  selectedBookingReducer,
+  DeleteBookingReducer,
+  UpdateBookingReducer,
+  BookingsReducer,
+  dataBooking,
+} from "./booking";
+import {
+  customerReducer,
+  CreatecustomerReducer,
+  selectedcustomerReducer,
+  DeleteCustomerReducer,
+  UpdateCustomerReducer,
+  dataCustomer,
+} from "./customer";
+
+
 const rootReducers = combineReducers({
   auth: userReducer,
 
@@ -32,8 +53,7 @@ const rootReducers = combineReducers({
   deleteAirlanes: DeleteAirlanesReducer,
   airlane: selectedairlanesReducer,
   updateAirlanes: UpdateairlanesReducer,
-  carts: cartReducer,
-  todo: todosReducer,
+  carts: airlanesDetailReducer,
 
   CreateCountry: CreatecountryReducer,
   allCountry: countryReducer,
@@ -42,7 +62,24 @@ const rootReducers = combineReducers({
   deleteCountry: DeleteCountryReducer,
   country: selectedcountryReducer,
   updateCountry: UpdatecountryReducer,
-  cart: cartsReducer,
+  cart: countryDetailReducer,
+
+  CreateBooking: CreatebookingReducer,
+  allBooking: BookingReducer,
+  dataBooking: dataBooking,
+  bookings: BookingsReducer,
+  deleteBooking: DeleteBookingReducer,
+  booking: selectedBookingReducer,
+  updateBooking: UpdateBookingReducer,
+  bookingdetail: bookingdetailAction,
+
+  CreateCustomer: CreatecustomerReducer,
+  allCustomer: customerReducer,
+  dataCustomer: dataCustomer,
+  deleteCustomer: DeleteCustomerReducer,
+  customer: selectedcustomerReducer,
+  updateCustomer: UpdateCustomerReducer,
+  detail: costemerDetailReducer,
 });
 
 export default rootReducers;

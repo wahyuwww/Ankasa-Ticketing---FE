@@ -1,47 +1,70 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-unused-vars */
 import React,{useState,useEffect} from "react";
 import Navbar from "../../../components/Module/navbar";
 import Sidebar from "../../../components/Module/sidebar";
 import { Link,useNavigate,useParams } from "react-router-dom";
 import axios from "axios"
-
+import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { updateCountry } from "../../../configs/redux/actions/countryActions";
 
 const Edit = () => {
 const navigate = useNavigate();
- const [image, setImage] = useState(["https://fakeimg.pl/350x250/"]);
- const [name, setName] = useState("");
- const [alias, setAlias] = useState("");
- const [city_name, setCity_name] = useState("");
+const [name, setName] = useState("");
+const [alias, setAlias] = useState("");
+const [city_name, setCity_name] = useState("");
 const [imagePreview, setImagePreview] = useState("https://fakeimg.pl/350x200/");
+const [image, setImage] = useState(imagePreview);
 
 // const {isLoading} = useSelector((state) => state.update);
 const dispatch = useDispatch();
-
+  const [error, setError] = useState(false);
 const { id } = useParams();
 const onSubmit = (e) => {
-  const data = new FormData();
-  data.append("name", name);
-  data.append("image", image);
-  data.append("alias", alias);
-  data.append("city_name", city_name);
-  e.preventDefault();
-  axios
-    .put(
-      `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/country/updatecountry/${id}`,
-      data,
-      {
-        "content-type": "multipart/form-data",
+      e.preventDefault();
+      if (
+        image.length == 0 ||
+        name.length == 0 ||
+        alias.length == 0 ||
+        city_name.length == 0
+      ) {
+        setError(true);
       }
-    )
-    .then((res) => {
-      dispatch(updateCountry(res));
-      navigate("/country");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      if (name && image && alias && city_name) {
+        const data = new FormData();
+        data.append("name", name);
+        data.append("image", image);
+        data.append("alias", alias);
+        data.append("city_name", city_name);
+        e.preventDefault();
+        axios
+          .put(
+            `${process.env.REACT_APP_API_BACKEND}/country/updatecountry/${id}`,
+            data,
+            {
+              "content-type": "multipart/form-data",
+            }
+          )
+          .then((res) => {
+            dispatch(updateCountry(res));
+            navigate("/country");
+            Swal.fire({
+              icon: "success",
+              title: "Berhasil mengupdate country",
+              text: `country : ${name}`,
+            });
+          })
+          .catch((err) => {
+             Swal.fire({
+               icon: "error",
+               title: "Oops...",
+               text: "data yang anda inputkan salah",
+             });
+            console.log(err);
+          });
+      }
+  
 };
 
 const onImageUpload = (e) => {
@@ -56,7 +79,7 @@ const onImageUpload = (e) => {
    }, []);
    const getProductById = async () => {
      const response = await axios.get(
-       `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/country/detailcountry/${id}`
+       `${process.env.REACT_APP_API_BACKEND}/country/detailcountry/${id}`
      );
      console.log(response);
      setImagePreview(response.data.data.city_image);
@@ -67,7 +90,7 @@ const onImageUpload = (e) => {
    };
   return (
     <div id="wrapper">
-      <Sidebar />
+      <Sidebar activecountry="active" />
       <div id="content-wrapper" className="d-flex flex-column">
         <Navbar />
         <div className="box-header with-border mb-3 ml-3">
@@ -89,6 +112,11 @@ const onImageUpload = (e) => {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="you@example.com"
                 />
+                {error && name.length <= 0 ? (
+                  <label className="text-danger">Name can't be Empty</label>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="col-6 mt-2">
                 <label htmlFor="text" className="form-label">
@@ -102,6 +130,11 @@ const onImageUpload = (e) => {
                   onChange={(e) => setAlias(e.target.value)}
                   placeholder="you@example.com"
                 />
+                {error && alias.length <= 0 ? (
+                  <label className="text-danger">alias can't be Empty</label>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="col-6 mt-2">
                 <label htmlFor="text" className="form-label">
@@ -115,12 +148,19 @@ const onImageUpload = (e) => {
                   onChange={(e) => setCity_name(e.target.value)}
                   placeholder="you@example.com"
                 />
+                {error && city_name.length <= 0 ? (
+                  <label className="text-danger">
+                    city_name can't be Empty
+                  </label>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="col-md-6 mt-2">
                 <label htmlFor="firstName" className="form-label ml-3">
                   Image
                 </label>
-                <br/>
+                <br />
                 <img
                   src={imagePreview}
                   alt="Bootstrap"
@@ -128,11 +168,15 @@ const onImageUpload = (e) => {
                 />
                 <input
                   type="file"
-                  className="form-control"
-                  id="firstName"
-                  required
                   onChange={(e) => onImageUpload(e)}
+                  className="form-control"
+                  id="image"
                 />
+                {error && image.length <= 0 ? (
+                  <label className="text-danger">image can't be Empty</label>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <Link to="/country">

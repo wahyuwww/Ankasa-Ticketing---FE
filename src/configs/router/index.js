@@ -6,12 +6,17 @@ import Country from "../../pages/admin/country";
 import FlightsDetail from "../../pages/admin/flights/detail";
 import FlightsCreate from "../../pages/admin/flights/create";
 import FlightsEdit from "../../pages/admin/flights/edit";
+import BookingDetail from "../../pages/admin/booking/detail";
+import Booking from "../../pages/admin/booking/index";
+import BookingEdit from "../../pages/admin/booking/edit";
 import CountryDetail from "../../pages/admin/country/detail";
 import CountryCreate from "../../pages/admin/country/create";
 import CountryEdit from "../../pages/admin/country/edit";
 import AirlanesDetail from "../../pages/admin/airlanes/detail";
 import AirlanesCreate from "../../pages/admin/airlanes/create";
 import AirlanesEdit from "../../pages/admin/airlanes/edit";
+import Users from "../../pages/admin/users";
+import UsersDetail from "../../pages/admin/users/detail";
 import Login from "../../pages/admin/auth/login";
 import RequireAuth from "../../components/Base/RequireAuth";
 
@@ -58,6 +63,7 @@ function Router() {
             </RequireAuth>
           }
         />
+
         {/* country */}
         <Route
           path="/country"
@@ -95,16 +101,37 @@ function Router() {
             </RequireAuth>
           }
         />
+
         {/* flights */}
         <Route path="/flights" element={<FlightsAdmin />} />
         <Route path="/flights/detail" element={<FlightsDetail />} />
         <Route path="/flights/create" element={<FlightsCreate />} />
         <Route path="/flights/edit" element={<FlightsEdit />} />
         {/* booking */}
-        <Route path="/booking" element={<FlightsAdmin />} />
-        <Route path="/booking/detail" element={<FlightsDetail />} />
-        <Route path="/booking/create" element={<FlightsCreate />} />
-        <Route path="/booking/edit" element={<FlightsEdit />} />
+
+        <Route path="/booking" element={<Booking />} />
+        <Route path="/detailBooking/:id" element={<BookingDetail />} />
+        <Route path="/editBooking/:id" element={<BookingEdit />} />
+
+        {/* users */}
+        <Route
+          path="/users"
+          element={
+            <RequireAuth>
+              {" "}
+              <Users />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/detailUsers/:id"
+          element={
+            <RequireAuth>
+              {" "}
+              <UsersDetail />
+            </RequireAuth>
+          }
+        />
         {/* <Route path="*" element={<Page404 />} /> */}
       </Routes>
     </BrowserRouter>

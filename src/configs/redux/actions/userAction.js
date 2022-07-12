@@ -1,13 +1,13 @@
 import axios from 'axios'
 // import { ActionTypes } from "../constants/action-types";
-
+import Swal from "sweetalert2";
 
 
 export const loginUser = (dataForm, navigate)=> async(dispatch)=>{
     try {
         dispatch({type: 'USER_LOGIN_PENDING'})
         const result = await axios.post(
-          `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/login`,
+          `${process.env.REACT_APP_API_BACKEND}/login`,
           dataForm
         );
       const user = result.data.data
@@ -22,7 +22,11 @@ export const loginUser = (dataForm, navigate)=> async(dispatch)=>{
          token: token.data,
          payload: user,
        });
-      alert("berhasil")
+        Swal.fire({
+          icon: "success",
+          title: "Selamat anda berhasil Login",
+          text: `Hallo ${result.data.data.admin}`,
+        });
         navigate('/airlanes')
 
     } catch (error) {

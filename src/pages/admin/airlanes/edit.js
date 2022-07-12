@@ -5,7 +5,7 @@ import Sidebar from "../../../components/Module/sidebar";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-
+import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { updateAirlanes } from "../../../configs/redux/actions/airlanesActions";
 
@@ -22,7 +22,7 @@ const Create = () => {
   const [error, setError] = useState(false);
   const { id } = useParams();
 
-  
+
   const onSubmit = (e) => {
     e.preventDefault();
     if (image.length == 0 || name.length == 0) {
@@ -35,7 +35,7 @@ const Create = () => {
       e.preventDefault();
       axios
         .put(
-          `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/airlanes/updateairlines/${id}`,
+          `${process.env.REACT_APP_API_BACKEND}/airlanes/updateairlines/${id}`,
           data,
           {
             "content-type": "multipart/form-data",
@@ -44,8 +44,18 @@ const Create = () => {
         .then((res) => {
           dispatch(updateAirlanes(res));
           navigate("/airlanes");
+           Swal.fire({
+             icon: "success",
+             title: "Berhasil mengupdate airlanes",
+             text: `airlanes : ${name}`,
+           });
         })
         .catch((err) => {
+           Swal.fire({
+             icon: "error",
+             title: "Oops...",
+             text: "data yang anda inputkan salah",
+           });
           console.log(err);
         });
     }
@@ -63,7 +73,7 @@ const Create = () => {
   };
   const getProductById = async () => {
     const response = await axios.get(
-      `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/airlanes/detailairlanes/${id}`
+      `${process.env.REACT_APP_API_BACKEND}/airlanes/detailairlanes/${id}`
     );
     console.log(response.data.data.image);
     setImagePreview(response.data.data.image);
@@ -73,7 +83,7 @@ const Create = () => {
 
   return (
     <div id="wrapper">
-      <Sidebar />
+      <Sidebar activeairlanes="active" />
       <div id="content-wrapper" className="d-flex flex-column">
         <Navbar />
         <div class="box-header with-border mb-3 ml-3">
@@ -100,19 +110,6 @@ const Create = () => {
                 ) : (
                   ""
                 )}
-              </div>
-              <div className="col-6 mt-2">
-                <label class="mr-sm-2" for="inlineFormCustomSelect">
-                  Active
-                </label>
-                <select
-                  class="custom-select mr-sm-2"
-                  id="inlineFormCustomSelect"
-                >
-                  <option selected>active</option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
-                </select>
               </div>
               <div className="col-md-6 mt-2">
                 <label htmlFor="image" className="form-label">

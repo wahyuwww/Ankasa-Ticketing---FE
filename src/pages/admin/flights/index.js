@@ -10,7 +10,7 @@ const flights = () => {
   return (
     <>
       <div id="wrapper">
-        <Sidebar />
+        <Sidebar activefligts="active"/>
         <div id="content-wrapper" className="d-flex flex-column">
           <Navbar />
           <div>

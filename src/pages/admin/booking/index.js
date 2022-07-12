@@ -4,29 +4,26 @@ import Sidebar from "../../../components/Module/sidebar";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { setAirlanes } from "../../../configs/redux/actions/airlanesActions";
-import { deleteAirlanes } from "../../../configs/redux/actions/airlanesActions";
+import { setBooking,deleteBooking } from "../../../configs/redux/actions/bookingActions";
 import Swal from "sweetalert2";
 
 const Airlanes = () => {
-  const airlanes = useSelector((state) => state.allAirlanes.airlanes);
+  const booking = useSelector((state) => state.allBooking.booking);
   const dispatch = useDispatch();
-  console.log(airlanes);
+  console.log(booking);
   const fetchData = async () => {
     const response = await axios
-      .get(
-        `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/airlanes/getairlanes`
-      )
+      .get(`${process.env.REACT_APP_API_BACKEND}/booking/getbooking`)
       .catch((err) => {
         console.log(err);
       });
-    dispatch(setAirlanes(response.data.data));
+    dispatch(setBooking(response.data.data));
   };
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const deletes = async (id) => {
+  const deletebooking = async (id) => {
     Swal.fire({
       title: "Are you sure to delete this airlanes?",
       text: "You won't be able to revert this!",
@@ -38,10 +35,12 @@ const Airlanes = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await axios
-          .delete(`${process.env.REACT_APP_API_BACKEND}/airlanes/delete/${id}`)
+          .delete(
+            `${process.env.REACT_APP_API_BACKEND}/booking/deletebooking/${id}`
+          )
           .then((res) => {
             fetchData();
-            dispatch(deleteAirlanes(res));
+            dispatch(deleteBooking(res));
             // navigate('/product')
             Swal.fire("Deleted!", "Your message has been deleted.", "success");
             console.log(res);
@@ -50,41 +49,22 @@ const Airlanes = () => {
     });
   };
 
-  const onActive = async (id) => {
-    await axios
-      .put(`${process.env.REACT_APP_API_BACKEND}/airlanes/activate/${id}`)
-      .then((res) => {
-        // alert("berhasil");
-        fetchData();
-        // navigate("/airlanes");
-        console.log(res);
-      });
-  };
-  useEffect(() => {
-    onActive();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <div id="wrapper">
-      <Sidebar activeairlanes="active"/>
+      <Sidebar activebooking="active" />
       <div id="content-wrapper" className="d-flex flex-column">
         <Navbar />
         <div>
           <div className="container-fluid">
             {/* Page Heading */}
-            <h1 className="h3 mb-2 text-gray-800">Kelola Airlanes</h1>
+            <h1 className="h3 mb-2 text-gray-800">Kelola Booking</h1>
             {/* DataTales Example */}
             <div className="card shadow mb-4">
               <div className="card-header py-3">
                 <h6 className="m-0 font-weight-bold text-primary">
-                  Data Airlanes
+                  Data Booking
                 </h6>
               </div>
-              <Link to="/airlanes/create">
-                <button className="btn btn-warning ml-3 mt-2">
-                  <span className="text"> + Create</span>
-                </button>
-              </Link>
               <div className="card-body">
                 <div className="table-responsive">
                   <table
@@ -95,51 +75,38 @@ const Airlanes = () => {
                     <thead>
                       <tr>
                         <th>No</th>
-                        <th>Name</th>
-                        <th>Image</th>
-                        <th>active</th>
+                        <th>Full Name</th>
+                        <th>nationality</th>
+                        <th>Payment Status</th>
+                        <th>Total Payment</th>
+                        <th>Total Order</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {airlanes.map((item, index) => (
+                      {booking.map((item, index) => (
                         <tr key={item.id}>
                           <td>{index + 1}</td>
-                          <td>{item.name}</td>
+                          <td>{item.full_name}</td>
+                          <td>{item.nationality}</td>
                           <td>
-                            {" "}
-                            <img
-                              width="100px"
-                              height="100px"
-                              src={item.image}
-                              alt="img"
-                            />
+                            {item.payment_status === 1 ? "SUCCESS" : "PENDING"}
                           </td>
+                          <td>{item.total_payment}</td>
+                          <td>{item.totalorder}</td>
                           <td>
-                            <button
-                              onClick={() => onActive(item.id)}
-                              className={
-                                item.is_active === 1
-                                  ? "btn btn-primary"
-                                  : "btn btn-secondary"
-                              }
-                            >
-                              {item.is_active === 1 ? "active" : "non active"}
-                            </button>
-                          </td>
-                          <td>
-                            <Link to={`/detailAirlanes/${item.id}`}>
+                            <Link to={`/detailBooking/${item.id}`}>
                               <button className="btn btn-success">
                                 <span className="text">Detail</span>
                               </button>
                             </Link>
-                            <Link to={`/editAirlanes/${item.id}`}>
+                            <Link to={`/editBooking/${item.id}`}>
                               <button className="mr-2 ml-2 btn btn-primary">
                                 <span className="text">Edit</span>
                               </button>
                             </Link>
                             <button
-                              onClick={() => deletes(item.id)}
+                              onClick={() => deletebooking(item.id)}
                               className=" btn btn-danger"
                             >
                               <span className="text">Delete</span>

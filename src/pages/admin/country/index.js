@@ -16,9 +16,7 @@ const Country = () => {
   console.log(country);
   const fetchData = async () => {
     const response = await axios
-      .get(
-        `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/country/getcountry`
-      )
+      .get(`${process.env.REACT_APP_API_BACKEND}/country/getcountry`)
       .catch((err) => {
         console.log(err);
       });
@@ -42,7 +40,7 @@ const Country = () => {
       if (ress.isConfirmed) {
         await axios
           .delete(
-            `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/country/deletecountry/${id}`
+            `${process.env.REACT_APP_API_BACKEND}/country/deletecountry/${id}`
           )
           .then((res) => {
             fetchData();
@@ -57,7 +55,7 @@ const Country = () => {
 
   return (
     <div id="wrapper">
-      <Sidebar />
+      <Sidebar activecountry="active"/>
       <div id="content-wrapper" className="d-flex flex-column">
         <Navbar />
         <div>

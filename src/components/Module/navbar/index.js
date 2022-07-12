@@ -4,7 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
 import { signOut } from "../../../configs/redux/actions/userAction";
-
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,11 @@ const Navbar = () => {
      localStorage.removeItem("refreshToken");
      localStorage.removeItem("id");
      dispatch(signOut());
-    alert("berhasil logout")
+    Swal.fire({
+      icon: "success",
+      title: "Selamat anda berhasil logout",
+      text: `Selamat tinggal ${user.admin}`,
+    });
    };
   return (
     <div>

@@ -1,8 +1,11 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from "react";
 import Navbar from "../../../components/Module/navbar";
 import Sidebar from "../../../components/Module/sidebar";
-import { detailAirlanesAction } from "../../../configs/redux/actions/detailAirlanesAction";
+import {
+ bookingdetailAction
+} from "../../../configs/redux/actions/bookingsAction";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -10,24 +13,36 @@ const Detail = () => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.carts);
-  const { name, image, is_active } = data;
+  const { data } = useSelector((state) => state.bookingdetail);
+  const {
+    user_id,
+    flight_id,
+    title,
+    full_name,
+    nationality,
+    travel_insurance,
+    payment_status,
+    total_payment,
+    totalorder,
+  } = data;
   console.log(data);
   // };
   useEffect(() => {
-    dispatch(detailAirlanesAction(id));
+    dispatch(bookingdetailAction(id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div id="wrapper">
-      <Sidebar activeairlanes="active" />
+      <Sidebar activebooking="active" />
       <div id="content-wrapper" className="d-flex flex-column">
         <Navbar />
         <div className="box-header with-border mb-3 ml-3">
-          <h1 className="h3 mb-2 text-gray-800">Detail Airlanes {name}</h1>
+          <h1 className="h3 mb-2 text-gray-800">
+            Detail Booking {title} {full_name}
+          </h1>
         </div>
         <div className="box-header with-border mb-3 ml-3">
-          <Link to="/airlanes">
+          <Link to="/booking">
             <a href="" className="btn btn-success">
               Kembali
             </a>
@@ -44,15 +59,31 @@ const Detail = () => {
                         <h6 className="text-primary">Name</h6>
                       </td>
                       <td width="5%">:</td>
-                      <td>{name}</td>
+                      <td>{full_name}</td>
                     </tr>
                     <tr>
                       <td classname="text-primary">
                         {" "}
-                        <h6 className="text-primary">Active</h6>
+                        <h6 className="text-primary">Title</h6>
                       </td>
                       <td>:</td>
-                      <td>{is_active === 1 ? "active" : "non active"}</td>
+                      <td>{title}</td>
+                    </tr>
+                    <tr>
+                      <td classname="text-primary">
+                        {" "}
+                        <h6 className="text-primary">Nationality</h6>
+                      </td>
+                      <td>:</td>
+                      <td>{nationality}</td>
+                    </tr>
+                    <tr>
+                      <td classname="text-primary">
+                        {" "}
+                        <h6 className="text-primary">Travel Insurance</h6>
+                      </td>
+                      <td>:</td>
+                      <td>{travel_insurance}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -68,17 +99,26 @@ const Detail = () => {
                     <tr>
                       <td classname="text-primary">
                         {" "}
-                        <h6 className="text-primary">Image</h6>
+                        <h6 className="text-primary">Payment Status</h6>
                       </td>
                       <td>:</td>
-                      <td>
-                        <img
-                          width="150px"
-                          height="150px"
-                          src={image}
-                          alt="img"
-                        />
+                      <td>{payment_status === 1 ? "SUCCESS" : "PENDING"}</td>
+                    </tr>
+                    <tr>
+                      <td classname="text-primary">
+                        {" "}
+                        <h6 className="text-primary">Total Payment</h6>
                       </td>
+                      <td>:</td>
+                      <td>{total_payment}</td>
+                    </tr>
+                    <tr>
+                      <td classname="text-primary">
+                        {" "}
+                        <h6 className="text-primary">Total Order</h6>
+                      </td>
+                      <td>:</td>
+                      <td>{totalorder}</td>
                     </tr>
                   </tbody>
                 </table>

@@ -37,7 +37,7 @@ export const createAirlanes = (data, navigate) => async (dispacth) => {
   try {
     dispacth({ type: ActionTypes.ADD_AIRLANES_PENDING });
     const createdAt = await axios.post(
-      ` https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/airlanes/newairlanes`,
+      ` ${process.env.REACT_APP_API_BACKEND}/airlanes/newairlanes`,
       data,
       {
         "content-type": "multipart/form-data",
@@ -51,29 +51,10 @@ export const createAirlanes = (data, navigate) => async (dispacth) => {
   }
 };
 
-// export const updateProduct = (data) => async (dispacth) => {
-//   const { id } = useParams()
-//   try {
-//     dispacth({ type: ActionTypes.ADD_PRODUCTS_PENDING });
-//     const createdAt = await axios
-//           .put(`${process.env.REACT_APP_API_BACKEND}/products/${id}`, data, {
-//             "content-type": "multipart/form-data",
-//           }
-//     );
-//     dispacth({ type: ActionTypes.UPDATE_PRODUCTS, payload: createdAt });
-//   } catch (error) {
-//     dispacth({ type: ActionTypes.GET_PRODUCT_ERROR, payload: error.response });
-//   }
-// };
-
 export const deleteAirlanes = (airlanes) => {
   return {
     type: ActionTypes.DELETE_AIRLANES,
     payload: airlanes,
   };
 };
-export const removeSelectedProduct = () => {
-  return {
-    type: ActionTypes.REMOVE_SELECTED_PRODUCT,
-  };
-};
+
