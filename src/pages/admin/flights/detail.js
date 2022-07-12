@@ -8,116 +8,154 @@ const Detail = () => {
       <Sidebar />
       <div id="content-wrapper" className="d-flex flex-column">
         <Navbar />
-        <div class="box-header with-border mb-3 ml-3">
-          <a href="/flights" class="btn btn-success">
-            Kembali
-          </a>
-        </div>
-        <div class="ml-1 row">
-          <div class="col-md-6">
-            <div class="box">
-              <div class="box-body">
-                <table class="table table-bordered">
-                  <tr>
-                    <td width="30%" className="text-primary">
-                      {" "}
-                      Airlines
-                    </td>
-                    <td width="5%">:</td>
-                    <td>Garuda</td>
-                  </tr>
-                  <tr>
-                    <td className="text-primary">departure city</td>
-                    <td>:</td>
-                    <td>solo</td>
-                  </tr>
-                  <tr>
-                    <td className="text-primary">arival city</td>
-                    <td>:</td>
-                    <td>Bandung</td>
-                  </tr>
-                  <tr>
-                    <td className="text-primary">Departure time</td>
-                    <td>:</td>
-                    <td> 28/09/2022</td>
-                  </tr>
-                  <tr>
-                    <td className="text-primary">arrival time</td>
-                    <td>:</td>
-                    <td> 28/09/2022</td>
-                  </tr>
-                  <tr>
-                    <td className="text-primary">code</td>
-                    <td>:</td>
-                    <td> 28/09/2022</td>
-                  </tr>
-                  <tr>
-                    <td className="text-primary">departure_date</td>
-                    <td>:</td>
-                    <td> 28/09/2022</td>
-                  </tr>
-                  <tr>
-                    <td className="text-primary">direct</td>
-                    <td>:</td>
-                    <td> 28/09/2022</td>
-                  </tr>
-                  <tr>
-                    <td className="text-primary">transit</td>
-                    <td>:</td>
-                    <td> 28/09/2022</td>
-                  </tr>
-                </table>
+        <div>
+          <div className="box-header with-border mb-3 ml-3">
+            <h1 classname="h3 mb-2 text-gray-800">
+              Detail Flights (nama flights)
+            </h1>
+          </div>
+          <div className="box-header with-border mb-3 ml-3">
+            <a href="/flights" className="btn btn-success">
+              Kembali
+            </a>
+          </div>
+          <div className="ml-1 row">
+            <div className="col-md-6">
+              <div className="box">
+                <div className="box-body">
+                  <table className="table table-bordered">
+                    <tbody>
+                      <tr>
+                        <td width="30%" classname="text-primary">
+                          <h6 className="text-primary">Airlines</h6>
+                        </td>
+                        <td width="5%">:</td>
+                        <td>Garuda</td>
+                      </tr>
+                      <tr>
+                        <td classname="text-primary">
+                          {" "}
+                          <h6 className="text-primary">Departure city</h6>
+                        </td>
+                        <td>:</td>
+                        <td>solo</td>
+                      </tr>
+                      <tr>
+                        <td classname="text-primary">
+                          <h6 className="text-primary">Arival city</h6>
+                        </td>
+                        <td>:</td>
+                        <td>Bandung</td>
+                      </tr>
+                      <tr>
+                        <td classname="text-primary">
+                          {" "}
+                          <h6 className="text-primary">Departure time</h6>
+                        </td>
+                        <td>:</td>
+                        <td> 28/09/2022</td>
+                      </tr>
+                      <tr>
+                        <td classname="text-primary">
+                          <h6 className="text-primary">Arrival time</h6>
+                        </td>
+                        <td>:</td>
+                        <td> 28/09/2022</td>
+                      </tr>
+                      <tr>
+                        <td classname="text-primary">
+                          {" "}
+                          <h6 className="text-primary">Code</h6>
+                        </td>
+                        <td>:</td>
+                        <td>092091FA</td>
+                      </tr>
+                      <tr>
+                        <td classname="text-primary">
+                          {" "}
+                          <h6 className="text-primary">Direct</h6>
+                        </td>
+                        <td>:</td>
+                        <td>Yes</td>
+                      </tr>
+                      <tr>
+                        <td classname="text-primary">
+                          {" "}
+                          <h6 className="text-primary">Transit</h6>
+                        </td>
+                        <td>:</td>
+                        <td>No</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="box">
+                <div className="box-header with-border " />
+                <div className="box-body">
+                  <table className="table table-bordered">
+                    <tbody>
+                      <tr>
+                        <td width="30%">
+                          <h6 className="text-primary"> More transit</h6>
+                        </td>
+                        <td width="5%">:</td>
+                        <td>yes</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <h6 className="text-primary"> Lugage</h6>
+                        </td>
+                        <td>:</td>
+                        <td>No</td>
+                      </tr>
+                      <tr>
+                        <td classname="text-primary">
+                          <h6 className="text-primary"> Meal</h6>
+                        </td>
+                        <td>:</td>
+                        <td>Yes</td>
+                      </tr>
+                      <tr>
+                        <td classname="text-primary">
+                          <h6 className="text-primary"> Wifi</h6>
+                        </td>
+                        <td>:</td>
+                        <td>Yes</td>
+                      </tr>
+                      <tr>
+                        <td classname="text-primary">
+                          <h6 className="text-primary"> Gate</h6>
+                        </td>
+                        <td>:</td>
+                        <td>Gate B</td>
+                      </tr>
+                      <tr>
+                        <td classname="text-primary">
+                          {" "}
+                          <h6 className="text-primary"> Terminal</h6>
+                        </td>
+                        <td>:</td>
+                        <td>Juanda</td>
+                      </tr>
+                      <tr>
+                        <td classname="text-primary">
+                          {" "}
+                          <h6 className="text-primary"> Stock</h6>
+                        </td>
+                        <td>:</td>
+                        <td>100 person</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="box">
-              <div class="box-header with-border "></div>
-              <div class="box-body">
-                <table class="table table-bordered">
-                  <tr>
-                    <td width="30%" className="text-primary">
-                      {" "}
-                      more transit
-                    </td>
-                    <td width="5%">:</td>
-                    <td>Garuda</td>
-                  </tr>
-                  <tr>
-                    <td className="text-primary">lugage</td>
-                    <td>:</td>
-                    <td>solo</td>
-                  </tr>
-                  <tr>
-                    <td className="text-primary">meal</td>
-                    <td>:</td>
-                    <td>Bandung</td>
-                  </tr>
-                  <tr>
-                    <td className="text-primary">wifi</td>
-                    <td>:</td>
-                    <td> 28/09/2022</td>
-                  </tr>
-                  <tr>
-                    <td className="text-primary">gate</td>
-                    <td>:</td>
-                    <td> 28/09/2022</td>
-                  </tr>
-                  <tr>
-                    <td className="text-primary">terminal</td>
-                    <td>:</td>
-                    <td> 28/09/2022</td>
-                  </tr>
-                  <tr>
-                    <td className="text-primary">stock</td>
-                    <td>:</td>
-                    <td> 28/09/2022</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
         </div>
+
         <div id="content"></div>
       </div>
     </div>

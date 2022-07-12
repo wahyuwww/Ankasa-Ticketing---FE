@@ -1,0 +1,17 @@
+
+.navbar_active {
+    position: relative !important;
+}
+
+.navbar_active::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background: #EFC81A;
+    left: 0px;
+    bottom: 0px;
+}
+.active {
+  color: green;
+}

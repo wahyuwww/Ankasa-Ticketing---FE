@@ -1,11 +1,25 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../../../components/Module/navbar";
 import Sidebar from "../../../components/Module/sidebar";
-import { Link } from "react-router-dom";
-import image from "../../../assets/image/surakarta.jpeg";
+import {
+  cartAction,
+} from "../../../configs/redux/actions/cartAction";
+import { useParams, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const Detail = () => {
+  const { id } = useParams();
+
+  const dispatch = useDispatch();
+  const { data } = useSelector((state) => state.carts);
+  const { name, image,  } = data;
+  console.log(data);
+  // };
+  useEffect(() => {
+    dispatch(cartAction(id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div id="wrapper">
       <Sidebar />
@@ -13,11 +27,11 @@ const Detail = () => {
         <Navbar />
         <div className="box-header with-border mb-3 ml-3">
           <h1 className="h3 mb-2 text-gray-800">
-            Detail Country (nama Country)
+            Detail Airlanes {name}
           </h1>
         </div>
         <div className="box-header with-border mb-3 ml-3">
-          <Link to="/country">
+          <Link to="/airlanes">
             <a href="" className="btn btn-success">
               Kembali
             </a>
@@ -34,23 +48,15 @@ const Detail = () => {
                         <h6 className="text-primary">Name</h6>
                       </td>
                       <td width="5%">:</td>
-                      <td>Surakarta</td>
+                      <td>{ name}</td>
                     </tr>
                     <tr>
                       <td classname="text-primary">
                         {" "}
-                        <h6 className="text-primary">Alias</h6>
+                        <h6 className="text-primary">Active</h6>
                       </td>
                       <td>:</td>
-                      <td>SK</td>
-                    </tr>
-                    <tr>
-                      <td classname="text-primary">
-                        {" "}
-                        <h6 className="text-primary">City Name</h6>
-                      </td>
-                      <td>:</td>
-                      <td>Surakarta City</td>
+                      <td>Yes</td>
                     </tr>
                   </tbody>
                 </table>
@@ -70,7 +76,7 @@ const Detail = () => {
                       </td>
                       <td>:</td>
                       <td>
-                        <img width="150px" src={image} alt="img" />
+                        <img width="150px" height="150px" src={image} alt="img" />
                       </td>
                     </tr>
                   </tbody>
@@ -79,11 +85,10 @@ const Detail = () => {
             </div>
           </div>
         </div>
-
         <div id="content"></div>
       </div>
     </div>
   );
-};
+};;
 
 export default Detail;
