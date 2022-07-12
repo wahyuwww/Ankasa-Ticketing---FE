@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setAirlanes } from "../../../configs/redux/actions/airlanesActions";
 import { deleteAirlanes } from "../../../configs/redux/actions/airlanesActions";
-// import Input from "../../../base/Input/Input";
+import Swal from "sweetalert2";
 
 const Airlanes = () => {
   const airlanes = useSelector((state) => state.allAirlanes.airlanes);
@@ -26,19 +26,48 @@ const Airlanes = () => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const deleteCategory = async (id) => {
+  const deletes = async (id) => {
+    Swal.fire({
+      title: "Are you sure to delete this airlanes?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await axios
+          .delete(
+            `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/airlanes/delete/${id}`
+          )
+          .then((res) => {
+            fetchData();
+            dispatch(deleteAirlanes(res));
+            // navigate('/product')
+            Swal.fire("Deleted!", "Your message has been deleted.", "success");
+            console.log(res);
+          });
+      }
+    });
+  };
+
+  const onActive = async (id) => {
     await axios
-      .delete(
-        `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/airlanes/delete/${id}`
+      .put(
+        `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/airlanes/activate/${id}`
       )
       .then((res) => {
-        alert("delete success");
+        // alert("berhasil");
         fetchData();
-        dispatch(deleteAirlanes(res));
-        // navigate('/product')
+        // navigate("/airlanes");
         console.log(res);
       });
   };
+  useEffect(() => {
+    onActive();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div id="wrapper">
       <Sidebar />
@@ -90,7 +119,18 @@ const Airlanes = () => {
                               alt="img"
                             />
                           </td>
-                          <td>Edinburgh</td>
+                          <td>
+                            <button
+                              onClick={() => onActive(item.id)}
+                              className={
+                                item.is_active === 1
+                                  ? "btn btn-primary"
+                                  : "btn btn-secondary"
+                              }
+                            >
+                              {item.is_active === 1 ? "active" : "non active"}
+                            </button>
+                          </td>
                           <td>
                             <Link to={`/detailAirlanes/${item.id}`}>
                               <button className="btn btn-success">
@@ -103,7 +143,7 @@ const Airlanes = () => {
                               </button>
                             </Link>
                             <button
-                              onClick={() => deleteCategory(item.id)}
+                              onClick={() => deletes(item.id)}
                               className=" btn btn-danger"
                             >
                               <span className="text">Delete</span>

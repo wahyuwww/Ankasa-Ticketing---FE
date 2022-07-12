@@ -13,7 +13,7 @@ const Detail = () => {
 
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.carts);
-  const { name, image,  } = data;
+  const { name, image, is_active } = data;
   console.log(data);
   // };
   useEffect(() => {
@@ -26,9 +26,7 @@ const Detail = () => {
       <div id="content-wrapper" className="d-flex flex-column">
         <Navbar />
         <div className="box-header with-border mb-3 ml-3">
-          <h1 className="h3 mb-2 text-gray-800">
-            Detail Airlanes {name}
-          </h1>
+          <h1 className="h3 mb-2 text-gray-800">Detail Airlanes {name}</h1>
         </div>
         <div className="box-header with-border mb-3 ml-3">
           <Link to="/airlanes">
@@ -48,7 +46,7 @@ const Detail = () => {
                         <h6 className="text-primary">Name</h6>
                       </td>
                       <td width="5%">:</td>
-                      <td>{ name}</td>
+                      <td>{name}</td>
                     </tr>
                     <tr>
                       <td classname="text-primary">
@@ -56,7 +54,7 @@ const Detail = () => {
                         <h6 className="text-primary">Active</h6>
                       </td>
                       <td>:</td>
-                      <td>Yes</td>
+                      <td>{is_active === 1 ? "active" : "non active"}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -76,7 +74,12 @@ const Detail = () => {
                       </td>
                       <td>:</td>
                       <td>
-                        <img width="150px" height="150px" src={image} alt="img" />
+                        <img
+                          width="150px"
+                          height="150px"
+                          src={image}
+                          alt="img"
+                        />
                       </td>
                     </tr>
                   </tbody>

@@ -1,44 +1,60 @@
-import React,{useEffect} from 'react'
+import React, { useEffect } from "react";
 import Navbar from "../../../components/Module/navbar";
 import Sidebar from "../../../components/Module/sidebar";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { setCountry,deleteCountry } from "../../../configs/redux/actions/countryActions";
-
+import {
+  setCountry,
+  deleteCountry,
+} from "../../../configs/redux/actions/countryActions";
+import Swal from "sweetalert2";
 
 const Country = () => {
-   const country = useSelector((state) => state.allCountry.country);
-   const dispatch = useDispatch();
-   console.log(country);
-   const fetchData = async () => {
-     const response = await axios
-       .get(
-         `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/country/getcountry`
-       )
-       .catch((err) => {
-         console.log(err);
-       });
-     console.log(response)
-     dispatch(setCountry(response.data.data));
-   };
-   useEffect(() => {
-     fetchData();
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, []);
-   const deleteCategory = async (id) => {
-     await axios
-       .delete(
-         `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/country/deletecountry/${id}`
-       )
-       .then((res) => {
-         alert("delete success");
-         fetchData();
-         dispatch(deleteCountry(res));
-         // navigate('/product')
-         console.log(res);
-       });
-   };
+  const country = useSelector((state) => state.allCountry.country);
+  const dispatch = useDispatch();
+  console.log(country);
+  const fetchData = async () => {
+    const response = await axios
+      .get(
+        `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/country/getcountry`
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log(response);
+    dispatch(setCountry(response.data.data));
+  };
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const deleteCountrys = async (id) => {
+    Swal.fire({
+      title: "Are you sure to delete this country?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then(async (ress) => {
+      if (ress.isConfirmed) {
+        await axios
+          .delete(
+            `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/country/deletecountry/${id}`
+          )
+          .then((res) => {
+            fetchData();
+            dispatch(deleteCountry(res));
+            // navigate('/product')
+            Swal.fire("Deleted!", "Your message has been deleted.", "success");
+            console.log(res);
+          });
+      }
+    });
+  };
+
   return (
     <div id="wrapper">
       <Sidebar />
@@ -115,7 +131,7 @@ const Country = () => {
                               </button>
                             </Link>
                             <button
-                              onClick={() => deleteCategory(item.id)}
+                              onClick={() => deleteCountrys(item.id)}
                               className=" btn btn-danger"
                             >
                               <span className="text">Delete</span>
@@ -134,6 +150,6 @@ const Country = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Country
+export default Country;

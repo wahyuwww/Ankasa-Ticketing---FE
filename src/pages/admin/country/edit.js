@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import Navbar from "../../../components/Module/navbar";
 import Sidebar from "../../../components/Module/sidebar";
 import { Link,useNavigate,useParams } from "react-router-dom";
@@ -49,7 +49,22 @@ const onImageUpload = (e) => {
   setImage(file);
   setImagePreview(URL.createObjectURL(file));
   console.log(URL.createObjectURL(file));
-};
+  };
+   useEffect(() => {
+     getProductById();
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, []);
+   const getProductById = async () => {
+     const response = await axios.get(
+       `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/country/detailcountry/${id}`
+     );
+     console.log(response);
+     setImagePreview(response.data.data.city_image);
+     // setImage(response.data.data.image)
+     setName(response.data.data.name);
+     setAlias(response.data.data.alias);
+     setCity_name(response.data.data.city_name);
+   };
   return (
     <div id="wrapper">
       <Sidebar />
@@ -58,72 +73,78 @@ const onImageUpload = (e) => {
         <div className="box-header with-border mb-3 ml-3">
           <h1 className="h3 mb-2 text-gray-800">Edit Country</h1>
         </div>
-        <form action="" onSubmit={onSubmit }>
-            <div>
-          {" "}
-          <div className="ml-3 mr-3 row">
-            <div className="col-6 mt-2">
-              <label htmlFor="text" className="form-label">
-                Name
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="email"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="you@example.com"
-              />
+        <form action="" onSubmit={onSubmit}>
+          <div>
+            {" "}
+            <div className="ml-3 mr-3 row">
+              <div className="col-6 mt-2">
+                <label htmlFor="text" className="form-label">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="email"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="you@example.com"
+                />
+              </div>
+              <div className="col-6 mt-2">
+                <label htmlFor="text" className="form-label">
+                  Alias
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="email"
+                  value={alias}
+                  onChange={(e) => setAlias(e.target.value)}
+                  placeholder="you@example.com"
+                />
+              </div>
+              <div className="col-6 mt-2">
+                <label htmlFor="text" className="form-label">
+                  Name City
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="email"
+                  value={city_name}
+                  onChange={(e) => setCity_name(e.target.value)}
+                  placeholder="you@example.com"
+                />
+              </div>
+              <div className="col-md-6 mt-2">
+                <label htmlFor="firstName" className="form-label ml-3">
+                  Image
+                </label>
+                <br/>
+                <img
+                  src={imagePreview}
+                  alt="Bootstrap"
+                  className="img-fluid mb-2"
+                />
+                <input
+                  type="file"
+                  className="form-control"
+                  id="firstName"
+                  required
+                  onChange={(e) => onImageUpload(e)}
+                />
+              </div>
             </div>
-            <div className="col-6 mt-2">
-              <label htmlFor="text" className="form-label">
-                Alias
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="email"
-                value={alias}
-                onChange={(e) => setAlias(e.target.value)}
-                placeholder="you@example.com"
-              />
-            </div>
-            <div className="col-6 mt-2">
-              <label htmlFor="text" className="form-label">
-                Name City
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="email"
-                value={city_name}
-                onChange={(e) => setCity_name(e.target.value)}
-                placeholder="you@example.com"
-              />
-            </div>
-            <div className="col-md-6 mt-2">
-              <label htmlFor="firstName" className="form-label">
-                Image
-              </label>
-              <input
-                type="file"
-                className="form-control"
-                id="firstName"
-                required
-                onChange={(e) => onImageUpload(e)}
-              />
-            </div>
-          </div>
-          <Link to="/country">
-            <button className="ml-4 mt-3 btn btn-warning" type="submit">
-              Back To Country
+            <Link to="/country">
+              <button className="ml-4 mt-3 btn btn-warning" type="submit">
+                Back To Country
+              </button>
+            </Link>
+            <button className="ml-4 mt-3 btn btn-primary" type="submit">
+              Submit
             </button>
-          </Link>
-          <button className="ml-4 mt-3 btn btn-primary" type="submit">
-            Submit
-          </button>
-        </div>
-      </form>
+          </div>
+        </form>
         <div id="content"></div>
       </div>
     </div>

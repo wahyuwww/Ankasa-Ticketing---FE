@@ -1,27 +1,34 @@
-import React,{useState,useEffect} from "react";
+/* eslint-disable eqeqeq */
+import React, { useState, useEffect } from "react";
 import Navbar from "../../../components/Module/navbar";
 import Sidebar from "../../../components/Module/sidebar";
 import { Link } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { updateAirlanes } from "../../../configs/redux/actions/airlanesActions";
 
 const Create = () => {
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [imagePreview, setImagePreview] = useState(
+    "https://fakeimg.pl/350x200/"
+  );
+  const [image, setImage] = useState(imagePreview);
 
-    const navigate = useNavigate();
-    const [image, setImage] = useState("https://fakeimg.pl/350x200/");
-    const [name, setName] = useState("");
-    const [imagePreview, setImagePreview] = useState(
-      "https://fakeimg.pl/350x200/"
-    );
+  // const {isLoading} = useSelector((state) => state.update);
+  const dispatch = useDispatch();
+  const [error, setError] = useState(false);
+  const { id } = useParams();
 
-    // const {isLoading} = useSelector((state) => state.update);
-    const dispatch = useDispatch();
-
-    const { id } = useParams();
-    const onSubmit = (e) => {
+  
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (image.length == 0 || name.length == 0) {
+      setError(true);
+    }
+    if (name && image) {
       const data = new FormData();
       data.append("name", name);
       data.append("image", image);
@@ -41,27 +48,28 @@ const Create = () => {
         .catch((err) => {
           console.log(err);
         });
-    };
-    useEffect(() => {
-      getProductById();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }
+  };
+  useEffect(() => {
+    getProductById();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    const onImageUpload = (e) => {
-      const file = e.target.files[0];
-      setImage(file);
-      setImagePreview(URL.createObjectURL(file));
-      console.log(URL.createObjectURL(file));
-    };
-    const getProductById = async () => {
-      const response = await axios.get(
-        `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/airlanes/detailairlanes/${id}`
-      );
-      console.log(response.data.data.image);
-      setImagePreview(response.data.data.image);
-      // setImage(response.data.data.image)
-      setName(response.data.data.name);
-    };
+  const onImageUpload = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    setImagePreview(URL.createObjectURL(file));
+    console.log(URL.createObjectURL(file));
+  };
+  const getProductById = async () => {
+    const response = await axios.get(
+      `https://avtur-ankasa-ticketing.herokuapp.com/v1/admin/airlanes/detailairlanes/${id}`
+    );
+    console.log(response.data.data.image);
+    setImagePreview(response.data.data.image);
+    // setImage(response.data.data.image)
+    setName(response.data.data.name);
+  };
 
   return (
     <div id="wrapper">
@@ -87,6 +95,11 @@ const Create = () => {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="you@example.com"
                 />
+                {error && name.length <= 0 ? (
+                  <label className="text-danger">Name can't be Empty</label>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="col-6 mt-2">
                 <label class="mr-sm-2" for="inlineFormCustomSelect">
@@ -102,9 +115,10 @@ const Create = () => {
                 </select>
               </div>
               <div className="col-md-6 mt-2">
-                <label htmlFor="firstName" className="form-label">
+                <label htmlFor="image" className="form-label">
                   Image
                 </label>
+                <br />
                 <img
                   src={imagePreview}
                   alt="Bootstrap"
@@ -114,8 +128,7 @@ const Create = () => {
                   type="file"
                   onChange={(e) => onImageUpload(e)}
                   className="form-control"
-                  id="firstName"
-                  required
+                  id="image"
                 />
               </div>
             </div>

@@ -100,6 +100,11 @@ function Router() {
         <Route path="/flights/detail" element={<FlightsDetail />} />
         <Route path="/flights/create" element={<FlightsCreate />} />
         <Route path="/flights/edit" element={<FlightsEdit />} />
+        {/* booking */}
+        <Route path="/booking" element={<FlightsAdmin />} />
+        <Route path="/booking/detail" element={<FlightsDetail />} />
+        <Route path="/booking/create" element={<FlightsCreate />} />
+        <Route path="/booking/edit" element={<FlightsEdit />} />
         {/* <Route path="*" element={<Page404 />} /> */}
       </Routes>
     </BrowserRouter>

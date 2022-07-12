@@ -46,6 +46,7 @@ export const createAirlanes = (data, navigate) => async (dispacth) => {
     navigate("/airlanes");
     dispacth({ type: ActionTypes.CREATE_AIRLANES, payload: createdAt });
   } catch (error) {
+    alert('eror')
     dispacth({ type: ActionTypes.GET_AIRLANES_ERROR, payload: error.response });
   }
 };

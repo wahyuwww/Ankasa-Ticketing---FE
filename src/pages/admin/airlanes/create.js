@@ -1,10 +1,12 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-unused-vars */
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Navbar from "../../../components/Module/navbar";
 import Sidebar from "../../../components/Module/sidebar";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createAirlanes } from "../../../configs/redux/actions/airlanesActions";
+
 
 const Create = () => {
   const navigate = useNavigate();
@@ -14,18 +16,22 @@ const Create = () => {
   const [imagePreview, setImagePreview] = useState([
     "https://fakeimg.pl/350x250/",
   ]);
-
+  const [error, setError] = useState(false);
   const onSubmit = (e) => {
-    const data = new FormData();
-    data.append("name", name);
-    data.append("image", image);
     e.preventDefault();
-    dispatch(createAirlanes(data, navigate));
-    alert("yess berhasil")
-    //  navigate("/productList");
-    // dispatch(createProduct(data));
+    if (image.length == 0 || name.length == 0) {
+      setError(true);
+    }
+    if (name && image) {
+      const data = new FormData();
+      data.append("name", name);
+      data.append("image", image);
+      e.preventDefault();
+      dispatch(createAirlanes(data, navigate));
+      alert("yess berhasil");
+    }
   };
-  console.log(image)
+
   const onImageUpload = (e) => {
     const file = e.target.files[0];
     setImage(file);
@@ -56,19 +62,11 @@ const Create = () => {
                   className="form-control"
                   id="email"
                 />
-              </div>
-              <div className="col-6 mt-2">
-                <label class="mr-sm-2" for="inlineFormCustomSelect">
-                  Active
-                </label>
-                <select
-                  class="custom-select mr-sm-2"
-                  id="inlineFormCustomSelect"
-                >
-                  <option selected>active</option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
-                </select>
+                {error && name.length <= 0 ? (
+                  <label className="text-danger">Name can't be Empty</label>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="col-md-6 mt-2">
                 <label htmlFor="firstName" className="form-label">
@@ -82,6 +80,11 @@ const Create = () => {
                   id="firstName"
                   required
                 />
+                {error && image.length <= 0 ? (
+                  <label>image can't be Empty</label>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <Link to="/airlanes">
