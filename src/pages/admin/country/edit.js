@@ -1,4 +1,5 @@
-import React,{useState,useEffect} from "react";
+/* eslint-disable no-unused-vars */
+import React,{useState} from "react";
 import Navbar from "../../../components/Module/navbar";
 import Sidebar from "../../../components/Module/sidebar";
 import { Link,useNavigate,useParams } from "react-router-dom";
