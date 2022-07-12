@@ -10,6 +10,7 @@ import {
 } from "./airlanes";
 import { userReducer } from "./userReducer";
 import { cartReducer, todosReducer } from "./cartReducer";
+import { cartsReducer } from "./cartsReducer";
 
 import {
   countryReducer,
@@ -41,8 +42,7 @@ const rootReducers = combineReducers({
   deleteCountry: DeleteCountryReducer,
   country: selectedcountryReducer,
   updateCountry: UpdatecountryReducer,
-  cart: cartReducer,
-  todos: todosReducer,
+  cart: cartsReducer,
 });
 
 export default rootReducers;

@@ -13,6 +13,7 @@ import AirlanesDetail from "../../pages/admin/airlanes/detail";
 import AirlanesCreate from "../../pages/admin/airlanes/create";
 import AirlanesEdit from "../../pages/admin/airlanes/edit";
 import Login from "../../pages/admin/auth/login";
+import RequireAuth from "../../components/Base/RequireAuth";
 
 function Router() {
   return (
@@ -21,15 +22,79 @@ function Router() {
         <Route path="/" element={<Navigate to="/login" replace="true" />} />
         <Route path="/login" element={<Login />} />
         {/* airlanes */}
-        <Route path="/airlanes" element={<Airlanes />} />
-        <Route path="/detailAirlanes/:id" element={<AirlanesDetail />} />
-        <Route path="/airlanes/create" element={<AirlanesCreate />} />
-        <Route path="/editAirlanes/:id" element={<AirlanesEdit />} />
+        <Route
+          path="/airlanes"
+          element={
+            <RequireAuth>
+              {" "}
+              <Airlanes />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/detailAirlanes/:id"
+          element={
+            <RequireAuth>
+              {" "}
+              <AirlanesDetail />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/airlanes/create"
+          element={
+            <RequireAuth>
+              {" "}
+              <AirlanesCreate />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/editAirlanes/:id"
+          element={
+            <RequireAuth>
+              {" "}
+              <AirlanesEdit />
+            </RequireAuth>
+          }
+        />
         {/* country */}
-        <Route path="/country" element={<Country />} />
-        <Route path="/detail/:id" element={<CountryDetail />} />
-        <Route path="/country/create" element={<CountryCreate />} />
-        <Route path="/editCountry/:id" element={<CountryEdit />} />
+        <Route
+          path="/country"
+          element={
+            <RequireAuth>
+              {" "}
+              <Country />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/detailCountry/:id"
+          element={
+            <RequireAuth>
+              {" "}
+              <CountryDetail />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/country/create"
+          element={
+            <RequireAuth>
+              {" "}
+              <CountryCreate />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/editCountry/:id"
+          element={
+            <RequireAuth>
+              {" "}
+              <CountryEdit />
+            </RequireAuth>
+          }
+        />
         {/* flights */}
         <Route path="/flights" element={<FlightsAdmin />} />
         <Route path="/flights/detail" element={<FlightsDetail />} />

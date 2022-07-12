@@ -104,7 +104,7 @@ const Country = () => {
                             />
                           </td>
                           <td>
-                            <Link to="/country/detail">
+                            <Link to={`/detailCountry/${item.id}`}>
                               <button className="btn btn-success">
                                 <span className="text">Detail</span>
                               </button>
