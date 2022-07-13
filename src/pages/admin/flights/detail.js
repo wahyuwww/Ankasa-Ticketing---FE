@@ -4,13 +4,14 @@ import Sidebar from "../../../components/Module/sidebar";
 import { Link, useParams } from "react-router-dom";
 import { detailFlightsAction } from "../../../configs/redux/actions/detailflightsAction";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 
 const Detail = () => {
     const { id } = useParams();
 
     const dispatch = useDispatch();
     const {data}  = useSelector((state) => state.detailFlights);
-    const { arrival_time,code,departure_date,departure_time,destination_city,gate,is_active,lugage,meal,name,origin_city,price,stock,terminal,transit,wifi } = data;
+    const { arrival_time,code,classf,departure_date,departure_time,destination_city,gate,is_active,lugage,meal,name,origin_city,price,stock,terminal,transit,wifi } = data;
     console.log(data);
     // };
     useEffect(() => {
@@ -81,7 +82,7 @@ const Detail = () => {
                           <h6 className="text-primary">Departure date</h6>
                         </td>
                         <td>:</td>
-                        <td>{departure_date}</td>
+                        <td>{moment(departure_date).format("llll")}</td>
                       </tr>
                       <tr>
                         <td classname="text-primary">
@@ -102,7 +103,7 @@ const Detail = () => {
                       <tr>
                         <td classname="text-primary">
                           {" "}
-                          <h6 className="text-primary">stock</h6>
+                          <h6 className="text-primary">Stock</h6>
                         </td>
                         <td>:</td>
                         <td>{stock}</td>
@@ -110,10 +111,10 @@ const Detail = () => {
                       <tr>
                         <td classname="text-primary">
                           {" "}
-                          <h6 className="text-primary">price</h6>
+                          <h6 className="text-primary">Price</h6>
                         </td>
                         <td>:</td>
-                        <td>{price}</td>
+                        <td> $ {price}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -172,10 +173,10 @@ const Detail = () => {
                       <tr>
                         <td classname="text-primary">
                           {" "}
-                          <h6 className="text-primary"> class</h6>
+                          <h6 className="text-primary"> Class</h6>
                         </td>
                         <td>:</td>
-                        <td>class</td>
+                        <td>{classf}</td>
                       </tr>
                     </tbody>
                   </table>
