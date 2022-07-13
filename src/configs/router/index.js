@@ -104,9 +104,9 @@ function Router() {
 
         {/* flights */}
         <Route path="/flights" element={<FlightsAdmin />} />
-        <Route path="/flights/detail" element={<FlightsDetail />} />
+        <Route path="/detailFlights/:id" element={<FlightsDetail />} />
         <Route path="/flights/create" element={<FlightsCreate />} />
-        <Route path="/flights/edit" element={<FlightsEdit />} />
+        <Route path="/editFlights/:id" element={<FlightsEdit />} />
         {/* booking */}
 
         <Route path="/booking" element={<Booking />} />

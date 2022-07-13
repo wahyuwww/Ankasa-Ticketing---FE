@@ -30,6 +30,11 @@ export const loginUser = (dataForm, navigate)=> async(dispatch)=>{
         navigate('/airlanes')
 
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "data yang anda inputkan salah, anda bukan admin",
+      });
         console.log(error);
     }
 }

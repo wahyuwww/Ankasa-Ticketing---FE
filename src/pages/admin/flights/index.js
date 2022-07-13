@@ -1,16 +1,80 @@
 /* eslint-disable react/style-prop-object */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../../../components/Module/navbar";
 import Sidebar from "../../../components/Module/sidebar";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import {
+  setFlights,
+  deleteFlights,
+} from "../../../configs/redux/actions/flightsActions";
+import Swal from "sweetalert2";
 
-const flights = () => {
+const Flights = () => {
+  const { flights } = useSelector((state) => state.allFlights);
+  const dispatch = useDispatch();
+  console.log(flights);
+  const fetchData = async () => {
+    const response = await axios
+      .get(`${process.env.REACT_APP_API_BACKEND}/flight/getflights/`)
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log(response.data.data);
+    dispatch(setFlights(response.data.data));
+  };
+
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const deletes = async (id) => {
+    Swal.fire({
+      title: "Are you sure to delete this flights?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await axios
+          .delete(
+            `${process.env.REACT_APP_API_BACKEND}/flight/deleteflights/${id}`
+          )
+          .then((res) => {
+            fetchData();
+            dispatch(deleteFlights(res));
+            // navigate('/product')
+            Swal.fire("Deleted!", "Your message has been deleted.", "success");
+            console.log(res);
+          });
+      }
+    });
+  };
+
+    const onActive = async (id) => {
+      await axios
+        .put(`${process.env.REACT_APP_API_BACKEND}/flight/switch/${id}`)
+        .then((res) => {
+          // alert("berhasil");
+          fetchData();
+          // navigate("/airlanes");
+          console.log(res);
+        });
+    };
+    useEffect(() => {
+      onActive();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
   return (
     <>
       <div id="wrapper">
-        <Sidebar activefligts="active"/>
+        <Sidebar activefligts="active" />
         <div id="content-wrapper" className="d-flex flex-column">
           <Navbar />
           <div>
@@ -39,214 +103,73 @@ const flights = () => {
                     >
                       <thead>
                         <tr>
+                          <th>No</th>
                           <th>Airlines</th>
                           <th>Departure City</th>
                           <th>Arrival city</th>
                           <th>Price</th>
+                          <th>Class</th>
+                          <th>Activasi</th>
                           <th>Actions</th>
                         </tr>
                       </thead>
                       <tfoot>
                         <tr>
+                          <th>No</th>
                           <th>Airlines</th>
                           <th>Departure City</th>
                           <th>Arrival city</th>
                           <th>Price</th>
+                          <th>Class</th>
+                          <th>Activasi</th>
                           <th>Actions</th>
                         </tr>
                       </tfoot>
                       <tbody>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>$320,800</td>
-                          <td>
-                            <Link to="/flights/detail">
-                              <button className="btn btn-success">
-                                <span className="text">Detail</span>
+                        {flights.map((item, index) => (
+                          <tr key={item.id}>
+                            <td>{index + 1}</td>
+                            <td>{item.name}</td>
+                            <td>
+                              {item.origin_city} ({item.departure_time})
+                            </td>
+                            <td>
+                              {item.destination_city} ({item.arrival_time})
+                            </td>
+                            <td>$ {item.price}</td>
+                            <td>{item.class}</td>
+                            <td>
+                              <button
+                                onClick={() => onActive(item.id)}
+                                className={
+                                  item.is_active === 1
+                                    ? "btn btn-primary"
+                                    : "btn btn-secondary"
+                                }
+                              >
+                                {item.is_active === 1 ? "active" : "non active"}
                               </button>
-                            </Link>
-                            <Link to="/flights/edit">
-                              <button className="mr-2 ml-2 btn btn-primary">
-                                <span className="text">Edit</span>
+                            </td>
+                            <td>
+                              <Link to={`/detailFlights/${item.id}`}>
+                                <button className="btn btn-success">
+                                  <span className="text">Detail</span>
+                                </button>
+                              </Link>
+                              <Link to={`/editFlights/${item.id}`}>
+                                <button className="mr-2 ml-2 btn btn-primary">
+                                  <span className="text">Edit</span>
+                                </button>
+                              </Link>
+                              <button
+                                onClick={() => deletes(item.id)}
+                                className=" btn btn-danger"
+                              >
+                                <span className="text">Delete</span>
                               </button>
-                            </Link>
-                            <button className=" btn btn-danger">
-                              <span className="text">Delete</span>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>$320,800</td>
-                          <td>
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                            <button className=" btn btn-danger">
-                              <span className="text">Delete</span>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>$320,800</td>
-                          <td>
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                            <button className=" btn btn-danger">
-                              <span className="text">Delete</span>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>$320,800</td>
-                          <td>
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                            <button className=" btn btn-danger">
-                              <span className="text">Delete</span>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>$320,800</td>
-                          <td>
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                            <button className=" btn btn-danger">
-                              <span className="text">Delete</span>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>$320,800</td>
-                          <td>
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                            <button className=" btn btn-danger">
-                              <span className="text">Delete</span>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>$320,800</td>
-                          <td>
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                            <button className=" btn btn-danger">
-                              <span className="text">Delete</span>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>$320,800</td>
-                          <td>
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                            <button className=" btn btn-danger">
-                              <span className="text">Delete</span>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>$320,800</td>
-                          <td>
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                            <button className=" btn btn-danger">
-                              <span className="text">Delete</span>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>$320,800</td>
-                          <td>
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                            <button className=" btn btn-danger">
-                              <span className="text">Delete</span>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Tiger Nixon</td>
-                          <td>System Architect</td>
-                          <td>Edinburgh</td>
-                          <td>$320,800</td>
-                          <td>
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                            <button className=" btn btn-danger">
-                              <span className="text">Delete</span>
-                            </button>
-                          </td>
-                        </tr>
+                            </td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>
@@ -261,4 +184,4 @@ const flights = () => {
   );
 };
 
-export default flights;
+export default Flights;

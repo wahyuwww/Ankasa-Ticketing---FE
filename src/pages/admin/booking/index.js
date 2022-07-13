@@ -25,7 +25,7 @@ const Airlanes = () => {
   }, []);
   const deletebooking = async (id) => {
     Swal.fire({
-      title: "Are you sure to delete this airlanes?",
+      title: "Are you sure to delete this booking?",
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,

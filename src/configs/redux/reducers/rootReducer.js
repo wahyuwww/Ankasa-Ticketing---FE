@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from "redux";
 import {
   airlanesReducer,
   CreateairlanesReducer,
@@ -13,6 +13,7 @@ import { airlanesDetailReducer } from "./airlanesDetailReducer";
 import { countryDetailReducer } from "./countrydetailReducer";
 import { costemerDetailReducer } from "./costemerDetailReducer";
 import { bookingdetailAction } from "./bookingsReducer";
+import { flightsDetailReducer } from "./flightsDetailReducer";
 
 import {
   countryReducer,
@@ -41,7 +42,14 @@ import {
   UpdateCustomerReducer,
   dataCustomer,
 } from "./customer";
-
+import {
+  flightsReducer,
+  CreateflightsReducer,
+  selectedflightsReducer,
+  DeleteFlightsReducer,
+  UpdateflightsReducer,
+  dataflights,
+} from "./flights";
 
 const rootReducers = combineReducers({
   auth: userReducer,
@@ -80,6 +88,14 @@ const rootReducers = combineReducers({
   customer: selectedcustomerReducer,
   updateCustomer: UpdateCustomerReducer,
   detail: costemerDetailReducer,
+
+  CreateFlights: CreateflightsReducer,
+  allFlights: flightsReducer,
+  dataFlights: dataflights,
+  deleteFlights: DeleteFlightsReducer,
+  Flights: selectedflightsReducer,
+  updateFlights: UpdateflightsReducer,
+  detailFlights: flightsDetailReducer,
 });
 
 export default rootReducers;

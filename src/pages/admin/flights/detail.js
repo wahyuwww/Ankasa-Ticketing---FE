@@ -1,8 +1,22 @@
-import React from "react";
+import React,{useEffect} from "react";
 import Navbar from "../../../components/Module/navbar";
 import Sidebar from "../../../components/Module/sidebar";
+import { Link, useParams } from "react-router-dom";
+import { detailFlightsAction } from "../../../configs/redux/actions/detailflightsAction";
+import { useDispatch, useSelector } from "react-redux";
 
 const Detail = () => {
+    const { id } = useParams();
+
+    const dispatch = useDispatch();
+    const {data}  = useSelector((state) => state.detailFlights);
+    const { arrival_time,code,departure_date,departure_time,destination_city,gate,is_active,lugage,meal,name,origin_city,price,stock,terminal,transit,wifi } = data;
+    console.log(data);
+    // };
+    useEffect(() => {
+      dispatch(detailFlightsAction(id));
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
   return (
     <div id="wrapper">
       <Sidebar />
@@ -10,14 +24,14 @@ const Detail = () => {
         <Navbar />
         <div>
           <div className="box-header with-border mb-3 ml-3">
-            <h1 classname="h3 mb-2 text-gray-800">
-              Detail Flights (nama flights)
-            </h1>
+            <h1 classname="h3 mb-2 text-gray-800">Detail Flights {name}</h1>
           </div>
           <div className="box-header with-border mb-3 ml-3">
-            <a href="/flights" className="btn btn-success">
-              Kembali
-            </a>
+            <Link to="/flights">
+              <a href=" " className="btn btn-success">
+                Kembali
+              </a>
+            </Link>
           </div>
           <div className="ml-1 row">
             <div className="col-md-6">
@@ -30,7 +44,7 @@ const Detail = () => {
                           <h6 className="text-primary">Airlines</h6>
                         </td>
                         <td width="5%">:</td>
-                        <td>Garuda</td>
+                        <td>{name}</td>
                       </tr>
                       <tr>
                         <td classname="text-primary">
@@ -38,14 +52,14 @@ const Detail = () => {
                           <h6 className="text-primary">Departure city</h6>
                         </td>
                         <td>:</td>
-                        <td>solo</td>
+                        <td>{origin_city}</td>
                       </tr>
                       <tr>
                         <td classname="text-primary">
                           <h6 className="text-primary">Arival city</h6>
                         </td>
                         <td>:</td>
-                        <td>Bandung</td>
+                        <td>{destination_city}</td>
                       </tr>
                       <tr>
                         <td classname="text-primary">
@@ -53,14 +67,21 @@ const Detail = () => {
                           <h6 className="text-primary">Departure time</h6>
                         </td>
                         <td>:</td>
-                        <td> 28/09/2022</td>
+                        <td> {departure_time}</td>
                       </tr>
                       <tr>
                         <td classname="text-primary">
                           <h6 className="text-primary">Arrival time</h6>
                         </td>
                         <td>:</td>
-                        <td> 28/09/2022</td>
+                        <td>{arrival_time}</td>
+                      </tr>
+                      <tr>
+                        <td classname="text-primary">
+                          <h6 className="text-primary">Departure date</h6>
+                        </td>
+                        <td>:</td>
+                        <td>{departure_date}</td>
                       </tr>
                       <tr>
                         <td classname="text-primary">
@@ -68,23 +89,31 @@ const Detail = () => {
                           <h6 className="text-primary">Code</h6>
                         </td>
                         <td>:</td>
-                        <td>092091FA</td>
+                        <td>{code}</td>
                       </tr>
                       <tr>
                         <td classname="text-primary">
                           {" "}
-                          <h6 className="text-primary">Direct</h6>
+                          <h6 className="text-primary">Active</h6>
                         </td>
                         <td>:</td>
-                        <td>Yes</td>
+                        <td>{is_active === 1 ? "active" : "non active"}</td>
                       </tr>
                       <tr>
                         <td classname="text-primary">
                           {" "}
-                          <h6 className="text-primary">Transit</h6>
+                          <h6 className="text-primary">stock</h6>
                         </td>
                         <td>:</td>
-                        <td>No</td>
+                        <td>{stock}</td>
+                      </tr>
+                      <tr>
+                        <td classname="text-primary">
+                          {" "}
+                          <h6 className="text-primary">price</h6>
+                        </td>
+                        <td>:</td>
+                        <td>{price}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -99,38 +128,38 @@ const Detail = () => {
                     <tbody>
                       <tr>
                         <td width="30%">
-                          <h6 className="text-primary"> More transit</h6>
+                          <h6 className="text-primary"> Wifi</h6>
                         </td>
                         <td width="5%">:</td>
-                        <td>yes</td>
+                        <td>{wifi === 1 ? "Ready" : "Non Ready"}</td>
                       </tr>
                       <tr>
                         <td>
                           <h6 className="text-primary"> Lugage</h6>
                         </td>
                         <td>:</td>
-                        <td>No</td>
+                        <td>{lugage === 1 ? "Ready" : "Non Ready"}</td>
                       </tr>
                       <tr>
                         <td classname="text-primary">
                           <h6 className="text-primary"> Meal</h6>
                         </td>
                         <td>:</td>
-                        <td>Yes</td>
+                        <td>{meal === 1 ? "Ready" : "Non Ready"}</td>
                       </tr>
                       <tr>
                         <td classname="text-primary">
-                          <h6 className="text-primary"> Wifi</h6>
+                          <h6 className="text-primary"> Transit</h6>
                         </td>
                         <td>:</td>
-                        <td>Yes</td>
+                        <td>{transit === 1 ? "Ready" : "Non Ready"}</td>
                       </tr>
                       <tr>
                         <td classname="text-primary">
                           <h6 className="text-primary"> Gate</h6>
                         </td>
                         <td>:</td>
-                        <td>Gate B</td>
+                        <td>{gate === 1 ? "Ready" : "Non Ready"}</td>
                       </tr>
                       <tr>
                         <td classname="text-primary">
@@ -138,15 +167,15 @@ const Detail = () => {
                           <h6 className="text-primary"> Terminal</h6>
                         </td>
                         <td>:</td>
-                        <td>Juanda</td>
+                        <td>{terminal}</td>
                       </tr>
                       <tr>
                         <td classname="text-primary">
                           {" "}
-                          <h6 className="text-primary"> Stock</h6>
+                          <h6 className="text-primary"> class</h6>
                         </td>
                         <td>:</td>
-                        <td>100 person</td>
+                        <td>class</td>
                       </tr>
                     </tbody>
                   </table>
