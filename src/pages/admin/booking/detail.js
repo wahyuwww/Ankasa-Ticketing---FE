@@ -55,7 +55,7 @@ const Detail = () => {
                 <table className="table table-bordered">
                   <tbody>
                     <tr>
-                      <td width="30%" classname="text-primary">
+                      <td width="30%" className="text-primary">
                         <h6 className="text-primary">Name</h6>
                       </td>
                       <td width="5%">:</td>

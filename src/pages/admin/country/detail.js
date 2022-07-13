@@ -5,6 +5,7 @@ import Sidebar from "../../../components/Module/sidebar";
 import { Link,useParams } from "react-router-dom";
 import { detailCountryAction } from "../../../configs/redux/actions/detailCountryAction";
 import { useDispatch, useSelector } from "react-redux";
+import Title from "../../../components/Base/Title-page";
 
 const Detail = () => {
    const { id } = useParams();
@@ -26,6 +27,7 @@ const Detail = () => {
         <div className="box-header with-border mb-3 ml-3">
           <h1 className="h3 mb-2 text-gray-800">Detail Country {name}</h1>
         </div>
+        <Title title="Detail Country" subTitle={name} />
         <div className="box-header with-border mb-3 ml-3">
           <Link to="/country">
             <a href="" className="btn btn-success">

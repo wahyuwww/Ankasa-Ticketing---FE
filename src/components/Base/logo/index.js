@@ -5,7 +5,7 @@ export class LogoAdmin extends Component {
   render() {
     return (
       <div
-        className={`${styles.logo_brand}`}
+        className={`${styles.logo}`}
       >
         <svg
           width="25"

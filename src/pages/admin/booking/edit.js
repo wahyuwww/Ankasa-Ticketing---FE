@@ -9,6 +9,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { updateBooking } from "../../../configs/redux/actions/bookingActions";
+import Input from "../../../components/Base/Input/Input";
+import Button from "../../../components/Base/Button/Button";
 
 const Edit = () => {
   const navigate = useNavigate();
@@ -93,13 +95,12 @@ console.log(insurance);
                 <label htmlFor="text" className="form-label">
                   Name
                 </label>
-                <input
+                <Input
                   type="text"
                   className="form-control"
                   id="text"
                   value={full_name}
                   onChange={(e) => setFull_name(e.target.value)}
-                  placeholder="you@example.com"
                 />
                 {error && full_name.length <= 0 ? (
                   <label className="text-danger">Name can't be Empty</label>
@@ -127,13 +128,12 @@ console.log(insurance);
                   Title
                 </label>
                 <br />
-                <input
+                <Input
                   type="text"
                   className="form-control"
                   id="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  placeholder="you@example.com"
                 />
                 {error && title.length <= 0 ? (
                   <label className="text-danger">Name can't be Empty</label>
@@ -146,13 +146,13 @@ console.log(insurance);
                   Insurance
                 </label>
                 <br />
-                <input
+                <Input
                   type="text"
                   className="form-control"
                   id="text"
                   value={insurance}
+                  placeholder="insurance"
                   onChange={(e) => setInsurance(e.target.value)}
-                  placeholder="you@example.com"
                 />
               </div>
               <div className="col-md-6 mt-2">
@@ -160,13 +160,12 @@ console.log(insurance);
                   Nationality
                 </label>
                 <br />
-                <input
+                <Input
                   type="text"
                   className="form-control"
                   id="text"
                   value={nationality}
                   onChange={(e) => setNationality(e.target.value)}
-                  placeholder="you@example.com"
                 />
                 {error && nationality.length <= 0 ? (
                   <label className="text-danger">Name can't be Empty</label>
@@ -179,24 +178,22 @@ console.log(insurance);
                   Total payment
                 </label>
                 <br />
-                <input
+                <Input
                   type="text"
                   className="form-control"
                   id="text"
                   value={total_payment}
                   onChange={(e) => setTotal_payment(e.target.value)}
-                  placeholder="you@example.com"
                 />
               </div>
             </div>
             <Link to="/booking">
-              <button className="ml-4 mt-3 btn btn-warning" type="submit">
-                Back To booking
-              </button>
+              <Button
+                title="Back To booking"
+                className="ml-4 mt-3 btn btn-warning"
+              />
             </Link>
-            <button className="ml-4 mt-3 btn btn-primary" type="submit">
-              Submit
-            </button>
+            <Button title="Submit" className="ml-4 mt-3 btn btn-primary" />
           </div>
         </form>
         <div id="content"></div>

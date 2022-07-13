@@ -1,62 +1,61 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-unused-vars */
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../../components/Module/navbar";
 import Sidebar from "../../../components/Module/sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createCountry } from "../../../configs/redux/actions/countryActions";
 import Swal from "sweetalert2";
+import Input from "../../../components/Base/Input/Input";
 
 const Create = () => {
-   const navigate = useNavigate();
-   const [image, setImage] = useState(["https://fakeimg.pl/350x250/"]);
-   const [name, setName] = useState("");
-   const [alias,setAlias] = useState("");
-   const [city_name,  setCity_name] = useState("");
-   const dispatch = useDispatch();
-   const [imagePreview, setImagePreview] = useState([
-     "https://fakeimg.pl/350x250/",
-   ]);
+  const navigate = useNavigate();
+  const [image, setImage] = useState(["https://fakeimg.pl/350x250/"]);
+  const [name, setName] = useState("");
+  const [alias, setAlias] = useState("");
+  const [city_name, setCity_name] = useState("");
+  const dispatch = useDispatch();
+  const [imagePreview, setImagePreview] = useState([
+    "https://fakeimg.pl/350x250/",
+  ]);
 
-    const [error, setError] = useState(false);
-   const onSubmit = (e) => {
-
+  const [error, setError] = useState(false);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (
+      image.length == 0 ||
+      name.length == 0 ||
+      alias.length == 0 ||
+      city_name.length == 0
+    ) {
+      setError(true);
+    }
+    if (name && image && alias && city_name) {
+      const data = new FormData();
+      data.append("name", name);
+      data.append("image", image);
+      data.append("alias", alias);
+      data.append("city_name", city_name);
       e.preventDefault();
-      if (
-        image.length == 0 ||
-        name.length == 0 ||
-        alias.length == 0 ||
-        city_name.length == 0
-      ) {
-        setError(true);
-      }
-      if (name && image && alias && city_name) {
-        const data = new FormData();
-        data.append("name", name);
-        data.append("image", image);
-        data.append("alias", alias);
-        data.append("city_name", city_name);
-        e.preventDefault();
-        dispatch(createCountry(data, navigate));
-         Swal.fire({
-           icon: "success",
-           title: "Berhasil mengupload country",
-           text: `country : ${name}`,
-         });
-        //  navigate("/productList");
-        // dispatch(createProduct(data));
-      }
-    
-   };
+      dispatch(createCountry(data, navigate));
+      Swal.fire({
+        icon: "success",
+        title: "Berhasil mengupload country",
+        text: `country : ${name}`,
+      });
+      //  navigate("/productList");
+      // dispatch(createProduct(data));
+    }
+  };
   console.log(image);
   console.log(alias);
-   const onImageUpload = (e) => {
-     const file = e.target.files[0];
-     setImage(file);
-     console.log(file);
-     setImagePreview(URL.createObjectURL(file));
-   };
+  const onImageUpload = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    console.log(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
   return (
     <div id="wrapper">
       <Sidebar activecountry="active" />
@@ -73,7 +72,7 @@ const Create = () => {
                 <label htmlFor="text" className="form-label">
                   Name
                 </label>
-                <input
+                <Input
                   type="text"
                   className="form-control"
                   id="email"
@@ -91,12 +90,11 @@ const Create = () => {
                 <label htmlFor="text" className="form-label">
                   Alias
                 </label>
-                <input
+                <Input
                   type="text"
                   className="form-control"
                   id="email"
                   onChange={(e) => setAlias(e.target.value)}
-                  placeholder="you@example.com"
                 />
                 {error && alias.length <= 0 ? (
                   <label className="text-danger">Alias can't be Empty</label>
@@ -106,14 +104,13 @@ const Create = () => {
               </div>
               <div className="col-6 mt-2">
                 <label htmlFor="text" className="form-label">
-                  city Name
+                  City Name
                 </label>
-                <input
+                <Input
                   type="text"
                   className="form-control"
                   id="email"
                   onChange={(e) => setCity_name(e.target.value)}
-                  placeholder="you@example.com"
                 />
                 {error && city_name.length <= 0 ? (
                   <label className="text-danger">
@@ -127,7 +124,7 @@ const Create = () => {
                 <label htmlFor="firstName" className="form-label">
                   Image
                 </label>
-                <input
+                <Input
                   type="file"
                   accept="image/*"
                   onChange={(e) => onImageUpload(e)}

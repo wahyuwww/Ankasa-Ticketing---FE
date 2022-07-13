@@ -9,6 +9,7 @@ import axios from "axios";
 import Swal from "sweetalert2"
 import { setAirlanes } from "../../../configs/redux/actions/airlanesActions";
 import { setCountry } from "../../../configs/redux/actions/countryActions";
+import Title from "../../../components/Base/Title-page";
 
 
 const Edit = () => {
@@ -16,12 +17,12 @@ const Edit = () => {
 
     const [form, setForm] = useState({
       airline_id: "",
-      departure_city: "",
-      arrival_city: "",
+      origin_city: "",
+      destination_city: "",
       departure_time: "",
       arrival_time: "",
       code: "",
-      classF: "",
+      classf: "",
       departure_date: "",
       transit: "",
       meal: "",
@@ -32,6 +33,7 @@ const Edit = () => {
       terminal: "",
       stock: "",
     });
+  console.log(form)
     const dispatch = useDispatch();
     const airlanes = useSelector((state) => state.allAirlanes.airlanes);
     console.log(airlanes);
@@ -119,9 +121,7 @@ const Edit = () => {
       <Sidebar />
       <div id="content-wrapper" className="d-flex flex-column">
         <Navbar />
-        <div class="box-header with-border mb-3 ml-3">
-          <h1 className="h3 mb-2 text-gray-800">Edit Flights</h1>
-        </div>
+        <Title title="Edit Flights" />
         <form action="" onSubmit={onSubmit}>
           <div className="mb-5">
             {" "}
@@ -141,7 +141,7 @@ const Edit = () => {
                     Airlanes
                   </option>
                   {airlanes.map((item) => (
-                    <option key={item.id} value={item.name}>
+                    <option key={item.id} value={item.name} selected>
                       {item.name} - (
                       {item.is_active === 1 ? "active" : "non active"})
                     </option>
@@ -153,8 +153,8 @@ const Edit = () => {
                   Departure city
                 </label>
                 <select
-                  name="departure_city"
-                  value={form.departure_city}
+                  name="origin_city"
+                  value={form.origin_city}
                   onChange={handleChange}
                   class="custom-select mr-sm-2"
                   id="inlineFormCustomSelect"
@@ -169,7 +169,7 @@ const Edit = () => {
                     </option>
                   ))}
                 </select>
-                {error && form.departure_city.length <= 0 ? (
+                {error && form.origin_city.length <= 0 ? (
                   <label className="text-danger">
                     departure city can't be Empty
                   </label>
@@ -182,8 +182,8 @@ const Edit = () => {
                   Arrival city
                 </label>
                 <select
-                  name="arrival_city"
-                  value={form.arrival_city}
+                  name="destination_city"
+                  value={form.destination_city}
                   onChange={handleChange}
                   class="custom-select mr-sm-2"
                   id="inlineFormCustomSelect"
@@ -198,7 +198,7 @@ const Edit = () => {
                     </option>
                   ))}
                 </select>
-                {error && form.arrival_city.length <= 0 ? (
+                {error && form.destination_city.length <= 0 ? (
                   <label className="text-danger">
                     Arrival city can't be Empty
                   </label>
@@ -245,8 +245,8 @@ const Edit = () => {
                 <input
                   value={form.departure_date}
                   onChange={handleChange}
-                  name="departure_date"
                   id="startDate"
+                  name="departure_date"
                   class="form-control"
                   type="date"
                   className="form-control"
@@ -352,8 +352,8 @@ const Edit = () => {
                   Class
                 </label>
                 <input
-                  value={form.classF}
-                  name="classF"
+                  value={form.classf}
+                  name="classf"
                   onChange={handleChange}
                   type="text"
                   className="form-control"
@@ -392,7 +392,7 @@ const Edit = () => {
                   required
                 />
               </div>
-              <div className="col-md-3 mt-2">
+              <div className="col-md-6 mt-2">
                 <label
                   htmlFor="firstName"
                   id="inlineFormCustomSelect"

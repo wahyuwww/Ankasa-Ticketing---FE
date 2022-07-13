@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../../configs/redux/actions/userAction";
 import { useNavigate } from "react-router-dom";
 import style from "./style.module.css"
+import Title from "../../../components/Base/title-login";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -52,9 +53,7 @@ const Login = () => {
                 </div>
                 <div className="col-lg-6">
                   <div className="p-5">
-                    <div className="text-center">
-                      <h1 className="h4 text-gray-900 mb-4">Hallo Admin</h1>
-                    </div>
+                    <Title/>
                     <form className="user" onSubmit={handleLogin}>
                       <div className="form-group">
                         <input
