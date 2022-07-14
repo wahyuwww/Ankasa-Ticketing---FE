@@ -1,13 +1,61 @@
-import React from 'react'
+import React, { useEffect } from "react";
 import Navbar from "../../../components/Module/navbar";
 import Sidebar from "../../../components/Module/sidebar";
-import { Link } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import {
+  setCountry,
+  deleteCountry,
+} from "../../../configs/redux/actions/countryActions";
+import Swal from "sweetalert2";
 
 const Country = () => {
+  const country = useSelector((state) => state.allCountry.country);
+  const dispatch = useDispatch();
+  console.log(country);
+  const fetchData = async () => {
+    const response = await axios
+      .get(`${process.env.REACT_APP_API_BACKEND}/country/getcountry`)
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log(response);
+    dispatch(setCountry(response.data.data));
+  };
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const deleteCountrys = async (id) => {
+    Swal.fire({
+      title: "Are you sure to delete this country?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
+    }).then(async (ress) => {
+      if (ress.isConfirmed) {
+        await axios
+          .delete(
+            `${process.env.REACT_APP_API_BACKEND}/country/deletecountry/${id}`
+          )
+          .then((res) => {
+            fetchData();
+            dispatch(deleteCountry(res));
+            // navigate('/product')
+            Swal.fire("Deleted!", "Your message has been deleted.", "success");
+            console.log(res);
+          });
+      }
+    });
+  };
+
   return (
     <div id="wrapper">
-      <Sidebar />
+      <Sidebar activecountry="active"/>
       <div id="content-wrapper" className="d-flex flex-column">
         <Navbar />
         <div>
@@ -36,6 +84,7 @@ const Country = () => {
                   >
                     <thead>
                       <tr>
+                        <th>No</th>
                         <th>name</th>
                         <th>Alias</th>
                         <th>city_name</th>
@@ -46,6 +95,7 @@ const Country = () => {
                     <tfoot>
                       <tr>
                         <th>name</th>
+                        <th>No</th>
                         <th>Alias</th>
                         <th>city_name</th>
                         <th>image</th>
@@ -53,322 +103,40 @@ const Country = () => {
                       </tr>
                     </tfoot>
                     <tbody>
-                      <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>$320,800</td>
-                        <td>
-                          <Link to="/conutry/detail">
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
+                      {country.map((item, index) => (
+                        <tr key={item.id}>
+                          <td>{index + 1}</td>
+                          <td>{item.name}</td>
+                          <td>{item.alias}</td>
+                          <td>{item.city_name}</td>
+                          <td>
+                            {" "}
+                            <img
+                              width="150px"
+                              src={item.city_image}
+                              alt="img"
+                            />
+                          </td>
+                          <td>
+                            <Link to={`/detailCountry/${item.id}`}>
+                              <button className="btn btn-success">
+                                <span className="text">Detail</span>
+                              </button>
+                            </Link>
+                            <Link to={`/editCountry/${item.id}`}>
+                              <button className="mr-2 ml-2 btn btn-primary">
+                                <span className="text">Edit</span>
+                              </button>
+                            </Link>
+                            <button
+                              onClick={() => deleteCountrys(item.id)}
+                              className=" btn btn-danger"
+                            >
+                              <span className="text">Delete</span>
                             </button>
-                          </Link>
-                          <Link to="/conutry/edit">
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                          </Link>
-                          <button className=" btn btn-danger">
-                            <span className="text">Delete</span>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>$320,800</td>
-                        <td>
-                          <Link to="/conutry/detail">
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                          </Link>
-                          <Link to="/conutry/edit">
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                          </Link>
-                          <button className=" btn btn-danger">
-                            <span className="text">Delete</span>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>$320,800</td>
-                        <td>
-                          <Link to="/conutry/detail">
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                          </Link>
-                          <Link to="/conutry/edit">
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                          </Link>
-                          <button className=" btn btn-danger">
-                            <span className="text">Delete</span>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>$320,800</td>
-                        <td>
-                          <Link to="/conutry/detail">
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                          </Link>
-                          <Link to="/conutry/edit">
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                          </Link>
-                          <button className=" btn btn-danger">
-                            <span className="text">Delete</span>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>$320,800</td>
-                        <td>
-                          <Link to="/conutry/detail">
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                          </Link>
-                          <Link to="/conutry/edit">
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                          </Link>
-                          <button className=" btn btn-danger">
-                            <span className="text">Delete</span>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>$320,800</td>
-                        <td>
-                          <Link to="/conutry/detail">
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                          </Link>
-                          <Link to="/conutry/edit">
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                          </Link>
-                          <button className=" btn btn-danger">
-                            <span className="text">Delete</span>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>$320,800</td>
-                        <td>
-                          <Link to="/conutry/detail">
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                          </Link>
-                          <Link to="/conutry/edit">
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                          </Link>
-                          <button className=" btn btn-danger">
-                            <span className="text">Delete</span>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>$320,800</td>
-                        <td>
-                          <Link to="/conutry/detail">
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                          </Link>
-                          <Link to="/conutry/edit">
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                          </Link>
-                          <button className=" btn btn-danger">
-                            <span className="text">Delete</span>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>$320,800</td>
-                        <td>
-                          <Link to="/conutry/detail">
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                          </Link>
-                          <Link to="/conutry/edit">
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                          </Link>
-                          <button className=" btn btn-danger">
-                            <span className="text">Delete</span>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>$320,800</td>
-                        <td>
-                          <Link to="/conutry/detail">
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                          </Link>
-                          <Link to="/conutry/edit">
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                          </Link>
-                          <button className=" btn btn-danger">
-                            <span className="text">Delete</span>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>$320,800</td>
-                        <td>
-                          <Link to="/conutry/detail">
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                          </Link>
-                          <Link to="/conutry/edit">
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                          </Link>
-                          <button className=" btn btn-danger">
-                            <span className="text">Delete</span>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>$320,800</td>
-                        <td>
-                          <Link to="/conutry/detail">
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                          </Link>
-                          <Link to="/conutry/edit">
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                          </Link>
-                          <button className=" btn btn-danger">
-                            <span className="text">Delete</span>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>$320,800</td>
-                        <td>
-                          <Link to="/conutry/detail">
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                          </Link>
-                          <Link to="/conutry/edit">
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                          </Link>
-                          <button className=" btn btn-danger">
-                            <span className="text">Delete</span>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>$320,800</td>
-                        <td>
-                          <Link to="/conutry/detail">
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                          </Link>
-                          <Link to="/conutry/edit">
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                          </Link>
-                          <button className=" btn btn-danger">
-                            <span className="text">Delete</span>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>$320,800</td>
-                        <td>
-                          <Link to="/conutry/detail">
-                            <button className="btn btn-success">
-                              <span className="text">Detail</span>
-                            </button>
-                          </Link>
-                          <Link to="/conutry/edit">
-                            <button className="mr-2 ml-2 btn btn-primary">
-                              <span className="text">Edit</span>
-                            </button>
-                          </Link>
-                          <button className=" btn btn-danger">
-                            <span className="text">Delete</span>
-                          </button>
-                        </td>
-                      </tr>
-                      
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
@@ -380,6 +148,6 @@ const Country = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Country
+export default Country;

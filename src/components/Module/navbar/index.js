@@ -1,9 +1,25 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { useDispatch,useSelector } from "react-redux";
+import { signOut } from "../../../configs/redux/actions/userAction";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  console.log(user)
+   const handleSignOut = () => {
+     localStorage.removeItem("refreshToken");
+     localStorage.removeItem("id");
+     dispatch(signOut());
+    Swal.fire({
+      icon: "success",
+      title: "Selamat anda berhasil logout",
+      text: `Selamat tinggal ${user.admin}`,
+    });
+   };
   return (
     <div>
       <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -84,7 +100,7 @@ const Navbar = () => {
               aria-expanded="false"
             >
               <span className="mr-2 d-none d-lg-inline text-gray-600 small">
-                Douglas McGee
+                hallo : {user.admin}
               </span>
               <img
                 className="img-profile rounded-circle"
@@ -98,19 +114,12 @@ const Navbar = () => {
             >
               <a className="dropdown-item" href="#">
                 <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400" />
-                Profile
-              </a>
-              <a className="dropdown-item" href="#">
-                <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400" />
-                Settings
-              </a>
-              <a className="dropdown-item" href="#">
-                <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400" />
-                Activity Log
+                {user.admin}
               </a>
               <div className="dropdown-divider" />
               <Link to="/login">
                 <a
+                  onClick={() => handleSignOut()}
                   className="dropdown-item"
                   href="#"
                   data-toggle="modal"
