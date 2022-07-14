@@ -1,9 +1,3 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
 # Admin Ankasa Tiketing
 Ankasa Flight is an online ticket booking application. This application is intended for people who want to travel both nationally and internationally, using airplanes.
 
@@ -43,3 +37,12 @@ Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
+
+
+## Screenshots
+<div align="center">
+    <img width="400" src="./screenshoot/Screenshot_1.png"> 
+    <img width="400" src="./screenshoot/Screenshot_2.png">
+     <img width="400" src="./screenshoot/Screenshot_3.png">
+    <img width="400" src="./screenshoot/Screenshot_4.png>
+</div>
