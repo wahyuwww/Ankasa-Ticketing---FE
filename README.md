@@ -41,8 +41,8 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ## Screenshots
 <div align="center">
-    <img width="400" src="./screenshoot/Screenshot_1.png"> 
-    <img width="400" src="./screenshoot/Screenshot_2.png">
-     <img width="400" src="./screenshoot/Screenshot_3.png">
-    <img width="400" src="./screenshoot/Screenshot_4.png>
+    <img width="300" src="./screenshoot/Screenshot_1.png"> 
+    <img width="300" src="./screenshoot/Screenshot_2.png">
+     <img width="300" src="./screenshoot/Screenshot_3.png">
+    <img width="300" src="./screenshoot/Screenshot_4.png>
 </div>
