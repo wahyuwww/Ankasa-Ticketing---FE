@@ -19,6 +19,7 @@ import Users from "../../pages/admin/users";
 import UsersDetail from "../../pages/admin/users/detail";
 import Login from "../../pages/admin/auth/login";
 import RequireAuth from "../../components/Base/RequireAuth";
+import Page404 from "../../pages/Page404/Page404";
 
 function Router() {
   return (
@@ -103,15 +104,71 @@ function Router() {
         />
 
         {/* flights */}
-        <Route path="/flights" element={<FlightsAdmin />} />
-        <Route path="/detailFlights/:id" element={<FlightsDetail />} />
-        <Route path="/flights/create" element={<FlightsCreate />} />
-        <Route path="/editFlights/:id" element={<FlightsEdit />} />
+        <Route
+          path="/flights"
+          element={
+            <RequireAuth>
+              {" "}
+              <FlightsAdmin />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/detailFlights/:id"
+          element={
+            <RequireAuth>
+              {" "}
+              <FlightsDetail />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/flights/create"
+          element={
+            <RequireAuth>
+              {" "}
+              <FlightsCreate />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/editFlights/:id"
+          element={
+            <RequireAuth>
+              {" "}
+              <FlightsEdit />
+            </RequireAuth>
+          }
+        />
         {/* booking */}
 
-        <Route path="/booking" element={<Booking />} />
-        <Route path="/detailBooking/:id" element={<BookingDetail />} />
-        <Route path="/editBooking/:id" element={<BookingEdit />} />
+        <Route
+          path="/booking"
+          element={
+            <RequireAuth>
+              {" "}
+              <Booking />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/detailBooking/:id"
+          element={
+            <RequireAuth>
+              {" "}
+              <BookingDetail />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/editBooking/:id"
+          element={
+            <RequireAuth>
+              {" "}
+              <BookingEdit />
+            </RequireAuth>
+          }
+        />
 
         {/* users */}
         <Route
@@ -132,7 +189,7 @@ function Router() {
             </RequireAuth>
           }
         />
-        {/* <Route path="*" element={<Page404 />} /> */}
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </BrowserRouter>
   );
