@@ -85,7 +85,14 @@ const Login = () => {
                         href="index.html"
                         className="btn btn-primary btn-user btn-block"
                       >
-                    
+                        {isLoading ? (
+                          <>
+                            <FontAwesomeIcon icon={faSpinner} spin />
+                            &nbsp;Loading
+                          </>
+                        ) : (
+                          "Login"
+                        )}
                       </button>
                     </form>
                   </div>
