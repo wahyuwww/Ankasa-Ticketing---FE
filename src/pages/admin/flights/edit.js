@@ -33,7 +33,7 @@ const Edit = () => {
       terminal: "",
       stock: "",
     });
-  console.log(form)
+  console.log(form.departure_date);
     const dispatch = useDispatch();
     const airlanes = useSelector((state) => state.allAirlanes.airlanes);
     console.log(airlanes);

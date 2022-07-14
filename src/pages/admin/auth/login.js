@@ -5,6 +5,8 @@ import { loginUser } from "../../../configs/redux/actions/userAction";
 import { useNavigate } from "react-router-dom";
 import style from "./style.module.css"
 import Title from "../../../components/Base/title-login";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -53,7 +55,7 @@ const Login = () => {
                 </div>
                 <div className="col-lg-6">
                   <div className="p-5">
-                    <Title/>
+                    <Title />
                     <form className="user" onSubmit={handleLogin}>
                       <div className="form-group">
                         <input
@@ -83,7 +85,14 @@ const Login = () => {
                         href="index.html"
                         className="btn btn-primary btn-user btn-block"
                       >
-                        {isLoading ? "loading.." : "Login"}
+                        {isLoading ? (
+                          <>
+                            <FontAwesomeIcon icon={faSpinner} spin />
+                            &nbsp;Loading
+                          </>
+                        ) : (
+                          "Login"
+                        )}
                       </button>
                     </form>
                   </div>
