@@ -24,9 +24,6 @@ const Detail = () => {
       <Sidebar activecountry="active" />
       <div id="content-wrapper" className="d-flex flex-column">
         <Navbar />
-        <div className="box-header with-border mb-3 ml-3">
-          <h1 className="h3 mb-2 text-gray-800">Detail Country {name}</h1>
-        </div>
         <Title title="Detail Country" subTitle={name} />
         <div className="box-header with-border mb-3 ml-3">
           <Link to="/country">

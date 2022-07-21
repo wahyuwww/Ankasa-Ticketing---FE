@@ -59,18 +59,6 @@ export const UpdateairlanesReducer = (
   switch (type) {
     case ActionTypes.UPDATE_AIRLANES:
       return { ...state, airlanes: payload.data.data };
-    // case ActionTypes.UPDATE_PRODUCTS:
-    //   console.log(payload.data.data.name)
-    //   return {
-    //     ...state,
-    //     product: state.product.map((item) => {
-    //       return item === payload.data.data ? payload.data.data : item;
-    //     })
-    //   }
-    //   console.log(...payload.name);
-    //  return state.map((product) =>
-    //    product.id === payload.id ? payload : product
-    //  );
     default:
       return state;
   }

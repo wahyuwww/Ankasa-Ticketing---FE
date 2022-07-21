@@ -103,7 +103,7 @@ const Create = () => {
                   id="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="you@example.com"
+                  placeholder="input name"
                 />
                 {error && name.length <= 0 ? (
                   <label className="text-danger">Name can't be Empty</label>

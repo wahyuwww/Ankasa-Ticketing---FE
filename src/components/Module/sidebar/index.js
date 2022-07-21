@@ -20,10 +20,12 @@ const Sidebar = ({ activeairlanes,activebooking,activecountry,activefligts,activ
       <hr className="sidebar-divider my-0" />
       {/* Nav Item - Dashboard */}
       <li className="nav-item">
-        <a className="nav-link" href="index.html">
-          <i className="fas fa-fw fa-tachometer-alt" />
-          <span>Dashboard</span>
-        </a>
+        <Link to="/airlanes">
+          <a className="nav-link" href="index.html">
+            <i className="fas fa-fw fa-tachometer-alt" />
+            <span>Dashboard</span>
+          </a>
+        </Link>
       </li>
       {/* Divider */}
       <hr className="sidebar-divider" />

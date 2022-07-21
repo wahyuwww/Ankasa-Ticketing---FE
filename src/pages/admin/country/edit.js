@@ -110,7 +110,7 @@ const onImageUpload = (e) => {
                   id="email"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="you@example.com"
+                  placeholder="Input name"
                 />
                 {error && name.length <= 0 ? (
                   <label className="text-danger">Name can't be Empty</label>
@@ -128,7 +128,7 @@ const onImageUpload = (e) => {
                   id="email"
                   value={alias}
                   onChange={(e) => setAlias(e.target.value)}
-                  placeholder="you@example.com"
+                  placeholder="input alias"
                 />
                 {error && alias.length <= 0 ? (
                   <label className="text-danger">alias can't be Empty</label>
@@ -146,7 +146,7 @@ const onImageUpload = (e) => {
                   id="email"
                   value={city_name}
                   onChange={(e) => setCity_name(e.target.value)}
-                  placeholder="you@example.com"
+                  placeholder="input city name"
                 />
                 {error && city_name.length <= 0 ? (
                   <label className="text-danger">
