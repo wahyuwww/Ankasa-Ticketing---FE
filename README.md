@@ -103,7 +103,7 @@ Here is a working live demo: admin-angkasa-group.netlify.app/
 <table>
 
   <tr>
-    <image src="./screenshoot/login.png" alt="Login Pagee" width=100%/>  <td>Login Admin </td>
+    <td><image src="./screenshoot/login.png" alt="Login Pagee" width=100%/>Login Admin </td>
   </tr>
   <tr>
     <td><image src="./screenshoot/table airlanes.png" alt="Register Page" width=100%></td>
