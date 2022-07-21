@@ -35,7 +35,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#screenshot">Screenshot</a></li>
+    <li><a href="#screenshoots">Screenshot</a></li>
     <li><a href="#contributing">Contributing</a></li>
             <li><a href="#Related-Project">Related Project</a></li>
         <li><a href="#our-team">Our Team</a></li>
