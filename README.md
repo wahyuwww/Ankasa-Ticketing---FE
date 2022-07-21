@@ -16,7 +16,7 @@
   <a href="https://github.com/dec0dOS/amazing-github-template/discussions">Ask a Question</a>
 </div>
 
-
+<br>
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -103,10 +103,7 @@ Here is a working live demo: admin-angkasa-group.netlify.app/
 <table>
 
   <tr>
-    <td><image src="./screenshoot/login.png" alt="Login Pagee" width=100%/></td>
-  </tr>
-   <tr>
-    <td>Login Admin </td>
+    <td><image src="./screenshoot/login.png" alt="Login Pagee" width=100%/>  <td>Login Admin </td></td>
   </tr>
   <tr>
     <td><image src="./screenshoot/table airlanes.png" alt="Register Page" width=100%></td>
