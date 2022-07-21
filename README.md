@@ -49,6 +49,8 @@
 ## About The Project
 
 Admin Angkasa Ticketing is an admin area that manages the space ticketing application for online ticket bookings. This application is intended to manage flights, airlines, users and manage bookings.
+<br/>
+
 ![Login Page](/screenshoot/login.png)
 Admin for website ankasa Tiketing: [Ankasa](admin-angkasa-group.netlify.app/)
 
