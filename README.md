@@ -133,7 +133,7 @@ Here is a working live demo: admin-angkasa-group.netlify.app/
   </tr>
   
   <tr>
-    <td><image src="./screenshoot/kelola booking fix.png" alt="List My Product" width=100%></td>
+    <td><image src="./screenshoot/booking fixs.png" alt="List My Product" width=100%></td>
         <td><image src="./screenshoot/detail booking.png" alt="Salling Product" width=100%></td>
   </tr>
   <tr>
