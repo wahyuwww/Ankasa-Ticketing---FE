@@ -115,7 +115,7 @@ Here is a working live demo: admin-angkasa-group.netlify.app/
   </tr>
   
   <tr>
-    <td><image src="./screenshoot/table country.png" alt="Home Page" width=100% ></td>
+    <td><image src="./screenshoot/countryes.png" alt="Home Page" width=100% ></td>
     <td><image src="./screenshoot/detail country.png" alt="Detail Product Page" width=100%/></td>
   </tr>
   <tr>
@@ -124,8 +124,8 @@ Here is a working live demo: admin-angkasa-group.netlify.app/
   </tr>
 
   <tr>
-    <td><image src="./screenshoot/flights detail fix.png" alt="My Product" width=100%></td>
-    <td><image src="./screenshoot/detail flighst.png" alt="Checkout Page" width=100%></td>
+    <td><image src="./screenshoot/KELOLA FILIGHST FIX.png" alt="My Product" width=100%></td>
+    <td><image src="./screenshoot/detail flighst fix.png" alt="Checkout Page" width=100%></td>
   </tr>
   <tr>
       <td>Table Flight</td>
@@ -133,7 +133,7 @@ Here is a working live demo: admin-angkasa-group.netlify.app/
   </tr>
   
   <tr>
-    <td><image src="./screenshoot/booking fix.png" alt="List My Product" width=100%></td>
+    <td><image src="./screenshoot/kelola booking fix.png" alt="List My Product" width=100%></td>
         <td><image src="./screenshoot/detail booking.png" alt="Salling Product" width=100%></td>
   </tr>
   <tr>
@@ -142,7 +142,7 @@ Here is a working live demo: admin-angkasa-group.netlify.app/
   </tr>
   
   <tr>
-    <td><image src="./screenshoot/user table.png" alt="Edit Product" width=100%></td>
+    <td><image src="./screenshoot/table user fix.png" alt="Edit Product" width=100%></td>
     <td><image src="./screenshoot/user detail.png" alt="Update Profil" width=100%></td>
   </tr>
   <tr>
