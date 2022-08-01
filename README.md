@@ -124,7 +124,7 @@ Here is a working live demo: admin-angkasa-group.netlify.app/
   </tr>
 
   <tr>
-    <td><image src="./screenshoot/KELOLA FILIGHST FIX.png" alt="My Product" width=100%></td>
+    <td><image src="./screenshoot/kelolaflight.png" alt="My Product" width=100%></td>
     <td><image src="./screenshoot/detail flighst fix.png" alt="Checkout Page" width=100%></td>
   </tr>
   <tr>
