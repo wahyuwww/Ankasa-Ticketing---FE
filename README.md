@@ -116,7 +116,7 @@ Here is a working live demo: admin-angkasa-group.netlify.app/
   
   <tr>
     <td><image src="./screenshoot/countryes.png" alt="Home Page" width=100% ></td>
-    <td><image src="./screenshoot/detail country.png" alt="Detail Product Page" width=100%/></td>
+    <td><image src="./screenshoot/detail countrys.png" alt="Detail Product Page" width=100%/></td>
   </tr>
   <tr>
     <td>Table Country</td>
